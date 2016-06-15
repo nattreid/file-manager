@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CrmModule\Components\FileManager;
+namespace nattreid\filemanager;
 
 use Nette\Application\UI\Control,
     Nette\Utils\Finder,
