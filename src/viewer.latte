@@ -1,0 +1,23 @@
+<div class="viewer">
+    <div class="background"></div>
+    <div n:class="viewer-container, $viewFile->type == 'image' ? image : data">
+        <a class="viewerClose fa fa-remove"></a>
+        {if $viewFile->type == 'image'}
+            <img src="{link file! $viewFile->name}"/>
+        {else}
+            {$viewFile->name}
+            <span class="properties">{_'default.fileManager.align'}<input type="checkbox" checked="true"/></span>
+                {if $edit}
+                    {form editForm}
+                        {input content, class => niceScroll}
+                    <div class="buttons">{input save}</div>
+                {/form}
+            {else}
+                <pre n:class="!$user->isMobile() ? niceScroll">{$viewFile->data}</pre>
+            {/if}
+        {/if}
+    </div>
+    <script type="text/javascript">
+        FileManager.redrawViewer();
+    </script>
+</div>

@@ -1,0 +1,40 @@
+<div class="fileManagerContainer" n:snippet="fileManagerContainer">
+    <div class="fileManagerPath">
+        <span class="path" n:if="!empty($path)">
+            <a class="ajax" data-ajax-off="history" n:href="changeDir" n:if="count($path) > 0">{_'default.fileManager.root'}</a>
+            {foreach $path as $dir}
+                / <a data-ajax-off="history" class="ajax" n:href="changeDir $dir->link">{$dir->name}</a>
+            {/foreach}
+        </span>
+        <span class="buttons">
+            <a class="fa fa-file ajax" data-ajax-off="history" n:href="addFile!" title="{_'default.fileManager.addFile'}"></a>
+            <a class="fa fa-folder ajax" data-ajax-off="history" n:href="addDir!" title="{_'default.fileManager.addDir'}"></a>
+        </span>
+    </div>
+    <div class="fileManagerContent">
+        {snippet itemsContainer}
+            <div class="itemContainer" n:foreach="$files as $file" data-request="0" data-file-size-handler="{link fileSize!, $file->name}">
+                {snippet itemContainer-$file->name}
+                    <a n:class="item, \Nette\Utils\Strings::webalize($file->type), !$file->rename ? ajax" data-ajax-off="history"{if !$file->rename} href="{link open $file->name}"{/if}>
+                        <span class="image"></span>
+                        {if $file->rename}
+                            {form renameForm}
+                                {input name}
+                            {/form}
+                        {else}
+                            <span class="text">{if strlen($file->name) > 20}{$file->name|substr:0:17}...{else}{$file->name}{/if}</span>
+                        {/if}
+                    </a>
+                    {include 'fileContextMenu.latte', file => $file}
+                    {include 'properties.latte', file => $file}
+                {/snippet}
+            </div>
+        {/snippet}
+    </div>
+    {snippet viewer}
+        {ifset $viewFile}
+            {include 'viewer.latte', viewFile => $viewFile, edit => isset($editFile)}
+        {/ifset}
+    {/snippet}
+</div>
+

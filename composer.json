@@ -1,0 +1,37 @@
+{
+    "name": "nattreid/filemanager",
+    "description": "File Manager for Nette Framework",
+    "type": "library",
+    "license": ["Unlicense"],
+    "authors": [
+        {
+            "name": "Attreid",
+            "email": "attreid@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@git.newtravel.cz:nattreid/form.git"
+        },
+        {
+            "type": "git",
+            "url": "git@git.newtravel.cz:nattreid/helpers.git"
+        }
+    ],
+    "require": {
+        "php": ">= 5.6",
+        "nette/utils": "~2.3",
+        "nette/application": "~2.3",
+        "ipub/flash-messages": "~1.0",
+        "nattreid/form": "dev-master",
+        "nattreid/helpers": "dev-master"
+    },
+    "require-dev": {
+        "nette/tester": "~1.6"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "classmap": ["src/"]
+    }
+}

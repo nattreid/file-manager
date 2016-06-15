@@ -1,0 +1,16 @@
+<div class="fileContextMenu">
+    <ul>
+        <li>
+            <a class="fm-download" n:href="download $file->name">{if $file->isDir}{_'default.fileManager.compressAndDownload'}{else}{_'default.fileManager.download'}{/if}</a>
+        </li>
+        <li n:if="$editable && !$file->isDir && $file->editable">
+            <a class="fm-edit ajax" data-ajax-off="history" n:href="edit $file->name">{_'default.fileManager.edit'}</a>
+        </li>
+        <li n:if="$editable">
+            <a class="fm-rename ajax" data-ajax-off="history" n:href="rename $file->name" >{_'default.fileManager.rename'}</a>
+        </li>
+        <li n:if="$editable">
+            <a class="fm-delete ajax" data-ajax-off="history" n:href="delete $file->name" data-confirm="{_'default.fileManager.confirmDelete', [file => $file->name]}">{_'default.fileManager.delete'}</a>
+        </li>
+    </ul>
+</div>
