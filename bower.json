@@ -1,0 +1,23 @@
+{
+    "name": "nattreid/filemanager",
+    "description": "File Manager for Nette Framework",
+    "license": ["Unlicense"],
+    "authors": [
+        {
+            "name": "Attreid",
+            "email": "attreid@gmail.com"
+        }
+    ],
+    "main": [
+        "./client-side/fileManager.js",
+        "./client-side/fileManager.less",
+        "./client-side/images/fileIcons.png"
+    ],
+    "ignore": [
+        "src",
+        "*.json"
+    ],
+    "dependencies": {
+        "jquery": "~1.12"
+    }
+}
