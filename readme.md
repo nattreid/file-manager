@@ -4,13 +4,13 @@ Nastavení v **config.neon**
 ```neon
 services:
     - 
-        implement: nattreid\filemanager\IFileManagerFactory
+        implement: \NAttreid\Filemanager\IFileManagerFactory
         arguments: [%appDir%/../]
 ```
 
 Použití v presenteru
 ```php
-/** @var \nattreid\filemanager\IFileManagerFactory @inject */
+/** @var \NAttreid\Filemanager\IFileManagerFactory @inject */
 public $fileManagerFactory;
 
 function createComponentList(){
