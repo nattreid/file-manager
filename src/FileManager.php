@@ -1,13 +1,13 @@
 <?php
 
-namespace nattreid\filemanager;
+namespace NAttreid\Filemanager;
 
 use Nette\Application\UI\Control,
     Nette\Utils\Finder,
     Nette\Application\Responses\FileResponse,
-    nattreid\helpers\File,
-    nAttreid\form\Form,
-    nAttreid\form\IFormFactory,
+    NAttreid\Utils\File,
+    NAttreid\Form\Form,
+    NAttreid\Form\IFormFactory,
     IPub\FlashMessages\FlashNotifier;
 
 /**
