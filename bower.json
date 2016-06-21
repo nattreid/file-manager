@@ -1,5 +1,5 @@
 {
-    "name": "nattreid/filemanager",
+    "name": "filemanager",
     "description": "File Manager for Nette Framework",
     "license": ["Unlicense"],
     "authors": [
