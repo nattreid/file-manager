@@ -8,12 +8,8 @@
             "email": "attreid@gmail.com"
         }
     ],
-    "main": [
-        "./client-side/src/fileManager.js",
-        "./client-side/src/fileManager.less"
-    ],
     "ignore": [
-        "src/",
+        "src",
         "*.json"
     ],
     "dependencies": {
