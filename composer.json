@@ -11,12 +11,13 @@
     ],
     "repositories": [
         {
-            "type": "git",
-            "url": "git@git.newtravel.cz:nattreid/form.git"
-        },
-        {
-            "type": "git",
-            "url": "git@git.newtravel.cz:nattreid/utils.git"
+            "type": "composer",
+            "url": "https://packages.newtravel.cz",
+            "options": {
+                "ssl": {
+                    "cafile": "myrootca.crt"
+                }
+            }
         }
     ],
     "require": {
@@ -25,6 +26,7 @@
         "nette/application": "~2.3",
         "ipub/flash-messages": "~1.0",
         "nattreid/form": "dev-master",
+        "kdyby/forms-replicator": "1.2.x-dev",
         "nattreid/utils": "dev-master"
     },
     "require-dev": {
