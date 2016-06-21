@@ -13,7 +13,7 @@
         "./client-side/src/fileManager.less"
     ],
     "ignore": [
-        "src",
+        "./src",
         "*.json"
     ],
     "dependencies": {
