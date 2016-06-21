@@ -19,3 +19,10 @@ function createComponentList(){
     return $manager;
 }
 ```
+
+Pokud používáte bower, upravte css
+```css
+.fileManagerContainer .fileManagerContent .itemContainer a.item .image {
+    background-image: url('/images/filemanager/fileIcons.png');
+}
+```
