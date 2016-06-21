@@ -1,6 +1,6 @@
 (function ($, window) {
     if (window.jQuery === undefined) {
-        console.error('Plugin "jQuery" required by "menu.js" is missing!');
+        console.error('Plugin "jQuery" required by "fileManager.js" is missing!');
         return;
     }
 
