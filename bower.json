@@ -9,12 +9,13 @@
         }
     ],
     "main": [
-        "./client-side/fileManager.js",
-        "./client-side/fileManager.less",
+        "./client-side/fileManager.min.js",
+        "./client-side/fileManager.css",
         "./client-side/images/fileIcons.png"
     ],
     "ignore": [
         "src",
+        "client-side/src",
         "*.json"
     ],
     "dependencies": {
