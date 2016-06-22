@@ -15,5 +15,12 @@
     "dependencies": {
         "jquery": "~1.12",
         "font-awesome": "~4.6"
+    },
+    "sources": {
+        "jquery": "bower_components/jquery/dist/jquery.min.js",
+        "font-awesome": [
+            "bower_components/font-awesome/less/*",
+            "bower_components/font-awesome/fonts/*"
+        ]
     }
 }
