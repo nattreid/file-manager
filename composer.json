@@ -12,12 +12,7 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "https://packages.newtravel.cz",
-            "options": {
-                "ssl": {
-                    "cafile": "myrootca.crt"
-                }
-            }
+            "url": "https://packages.newtravel.cz"
         }
     ],
     "require": {
