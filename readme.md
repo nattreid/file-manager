@@ -3,7 +3,7 @@
 Nastavení v **config.neon**
 ```neon
 services:
-    - \NAttreid\Filemanager\IFileManagerFactory
+    - {implement: NAttreid\Filemanager\IFileManagerFactory, arguments: [%basePath%], parameters: [basePath: %appDir%/..]}
 ```
 
 Pokud používáte bower, upravte css
@@ -19,7 +19,8 @@ Použití v presenteru
 public $fileManagerFactory;
 
 function createComponentList(){
-    $manager = $this->fileManagerFactory->create('baseRoot');
+    $basePath = 'korenovyAdresar';
+    $manager = $this->fileManagerFactory->create($basePath);
     $manager->editable(true); // povolí editaci, mazání a přejmenování souborů
     return $manager;
 }

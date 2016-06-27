@@ -494,9 +494,6 @@ class Finfo {
 
 interface IFileManagerFactory {
 
-    /**
-     * @var string $path
-     * @return FileManager
-     */
-    public function create($path);
+    /** @return FileManager */
+    public function create();
 }
