@@ -17,11 +17,11 @@
     ],
     "require": {
         "php": ">= 5.6",
-        "nette/utils": "~2.3",
-        "nette/application": "~2.3",
-        "ipub/flash-messages": "~1.0",
-        "nattreid/form": "~1.0",
-        "nattreid/utils": "~1.0"
+        "nette/utils": "~2.3@dev",
+        "nette/application": "~2.3@dev",
+        "ipub/flash-messages": "~1.0@dev",
+        "nattreid/form": "~1.0@dev",
+        "nattreid/utils": "~1.0@dev"
     },
     "require-dev": {
         "nette/tester": "~1.6"
