@@ -35,13 +35,13 @@ class FileManager extends Control {
     /** @var FlashNotifier */
     private $flashNotifier;
 
-    public function __construct($path, IFormFactory $formFactory, FlashNotifier $flashNotifier) {
+    public function __construct($basePath, IFormFactory $formFactory, FlashNotifier $flashNotifier) {
         $this->formFactory = $formFactory;
         $this->flashNotifier = $flashNotifier;
-        if (!\Nette\Utils\Strings::endsWith($path, DIRECTORY_SEPARATOR)) {
-            $path .= DIRECTORY_SEPARATOR;
+        if (!\Nette\Utils\Strings::endsWith($basePath, DIRECTORY_SEPARATOR)) {
+            $basePath .= DIRECTORY_SEPARATOR;
         }
-        $this->basePath = $path;
+        $this->basePath = $basePath;
     }
 
     /**
@@ -495,5 +495,5 @@ class Finfo {
 interface IFileManagerFactory {
 
     /** @return FileManager */
-    public function create();
+    public function create($basePath);
 }
