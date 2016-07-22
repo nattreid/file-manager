@@ -3,7 +3,10 @@
 Nastavení v **config.neon**
 ```neon
 services:
-    - {implement: NAttreid\Filemanager\IFileManagerFactory, arguments: [%basePath%], parameters: [basePath: %appDir%/..]}
+    - 
+        implement: NAttreid\Filemanager\IFileManagerFactory
+        arguments: [%basePath%]
+        parameters: [basePath: 'rootAdresarProZobrazeni']
 ```
 
 Pokud používáte bower, upravte css
