@@ -15,6 +15,6 @@
     "dependencies": {
         "jquery": "~1.12",
         "font-awesome": "~4.6",
-        "jsUtils": "git@git.newtravel.cz:nattreid/jsutils.git#~1.0"
+        "utils": "git@git.newtravel.cz:nattreid/utils.git#~1.0"
     }
 }
