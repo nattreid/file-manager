@@ -17,7 +17,7 @@ use Nette\Application\UI\Control,
  */
 class FileManager extends Control {
 
-    use Nextras\Application\UI\SecuredLinksControlTrait;
+    use \Nextras\Application\UI\SecuredLinksControlTrait;
 
     /** @persistent */
     public $path;
