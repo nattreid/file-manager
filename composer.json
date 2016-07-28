@@ -21,7 +21,8 @@
         "nette/application": "~2.3",
         "ipub/flash-messages": "~1.0",
         "nattreid/form": "~1.0",
-        "nattreid/utils": "~1.0"
+        "nattreid/utils": "~1.0",
+        "nextras/secured-links": "~1.3"
     },
     "require-dev": {
         "nette/tester": "~1.6"

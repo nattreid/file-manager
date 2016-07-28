@@ -17,6 +17,8 @@ use Nette\Application\UI\Control,
  */
 class FileManager extends Control {
 
+    use Nextras\Application\UI\SecuredLinksControlTrait;
+
     /** @persistent */
     public $path;
 
@@ -55,25 +57,22 @@ class FileManager extends Control {
     /**
      * Otevreni souboru nebo adresare
      * @param string $fileName
+     * @secured
      */
     public function handleOpen($fileName) {
-        if ($this->presenter->isAjax()) {
-            if (strpos($fileName, '..' . DIRECTORY_SEPARATOR) !== FALSE) {
-                throw new \InvalidArgumentException;
-            }
-            $file = $this->getFileInfo($fileName);
-            if ($file->isDir) {
-                $path = $this->getPath();
-                $path[] = $fileName;
-                $this->setPath($path);
-            } else {
-                $this->viewFile($file);
-            }
-
-            $this->redrawControl('fileManagerContainer');
-        } else {
-            $this->presenter->terminate();
+        if (strpos($fileName, '..' . DIRECTORY_SEPARATOR) !== FALSE) {
+            throw new \InvalidArgumentException;
         }
+        $file = $this->getFileInfo($fileName);
+        if ($file->isDir) {
+            $path = $this->getPath();
+            $path[] = $fileName;
+            $this->setPath($path);
+        } else {
+            $this->viewFile($file);
+        }
+
+        $this->redrawControl('fileManagerContainer');
     }
 
     /**
@@ -92,6 +91,7 @@ class FileManager extends Control {
     /**
      * Zmena adresare
      * @param string $dir
+     * @secured
      * @throws \InvalidArgumentException
      */
     public function handleChangeDir($dir = NULL) {
@@ -104,6 +104,7 @@ class FileManager extends Control {
 
     /**
      * Velikost souboru
+     * @secured
      * @param string $fileName
      */
     public function handleFileSize($fileName) {
@@ -117,6 +118,7 @@ class FileManager extends Control {
 
     /**
      * Stahnuti souboru
+     * @secured
      * @param string $fileName
      */
     public function handleDownload($fileName) {
@@ -133,6 +135,7 @@ class FileManager extends Control {
 
     /**
      * Zobrazeni pouze souboru
+     * @secured
      * @param string $fileName
      */
     public function handleFile($fileName) {
@@ -147,6 +150,7 @@ class FileManager extends Control {
 
     /**
      * Smazani souboru
+     * @secured
      * @param string $fileName
      */
     public function handleDelete($fileName) {
@@ -165,6 +169,7 @@ class FileManager extends Control {
 
     /**
      * Editace souboru
+     * @secured
      * @param string $fileName
      */
     public function handleEdit($fileName) {
@@ -187,6 +192,7 @@ class FileManager extends Control {
 
     /**
      * Prejmenovani souboru
+     * @secured
      * @param string $fileName
      */
     public function handleRename($fileName) {
