@@ -350,7 +350,7 @@ class FileManager extends Control {
      */
     private function getBasePath() {
         if ($this->basePath === NULL) {
-            throw new \Nette\InvalidArgumentException('Neni volana metoda setBasePath($path)');
+            throw new \Nette\InvalidArgumentException('Method setBasePath($path) does not call');
         }
         return $this->basePath;
     }
