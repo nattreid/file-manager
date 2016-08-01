@@ -7,6 +7,7 @@ return [
     'FileManager.rename' => 'Rename',
     'FileManager.delete' => 'Delete',
     'FileManager.edit' => 'Edit',
+    'FileManager.save' => 'Save',
     'FileManager.name' => 'Name',
     'FileManager.size' => 'Size',
     'FileManager.change' => 'Changed',

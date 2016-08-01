@@ -7,6 +7,7 @@ return [
     'FileManager.rename' => 'Přejmenovat',
     'FileManager.delete' => 'Smazat',
     'FileManager.edit' => 'Editovat',
+    'FileManager.save' => 'Uložit',
     'FileManager.name' => 'Název',
     'FileManager.type' => 'Typ',
     'FileManager.dataSaved' => 'Data uložena',

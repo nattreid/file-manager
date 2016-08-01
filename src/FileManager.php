@@ -40,9 +40,9 @@ class FileManager extends Control {
     /** @var ITranslator */
     private $translator;
 
-    public function __construct($basePath, IFormFactory $formFactory, FlashNotifier $flashNotifier) {
+    public function __construct($basePath, IFormFactory $formFactory, SessionStorage $sessionStorage) {
         $this->formFactory = $formFactory;
-        $this->flashNotifier = $flashNotifier;
+        $this->flashNotifier = new FlashNotifier($sessionStorage);
         if (!\Nette\Utils\Strings::endsWith($basePath, DIRECTORY_SEPARATOR)) {
             $basePath .= DIRECTORY_SEPARATOR;
         }
@@ -269,13 +269,13 @@ class FileManager extends Control {
         $form->addTextArea('content')
                 ->setAttribute('autofocus', TRUE);
 
-        $form->addSubmit('save', 'default.form.save');
+        $form->addSubmit('save', 'FileManager.save');
 
         $form->onSuccess[] = function(Form $form, $values) {
             if ($this->presenter->isAjax() && $this->editable) {
                 file_put_contents($this->getFullPath($values->id), $values->content);
 
-                $this->flashNotifier->success('default.fileManager.dataSaved');
+                $this->flashNotifier->success($this->translator->translate('FileManager.dataSaved'));
                 $this->redrawControl('fileManagerContainer');
                 $this->presenter['flashMessages']->redrawControl();
             } else {
