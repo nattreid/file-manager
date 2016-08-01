@@ -1,14 +1,14 @@
 <div class="fileManagerContainer" n:snippet="fileManagerContainer">
     <div class="fileManagerPath">
         <span class="path" n:if="!empty($path)">
-            <a class="ajax" n:href="changeDir" n:if="count($path) > 0">{_'default.fileManager.root'}</a>
+            <a class="ajax" n:href="changeDir" n:if="count($path) > 0">{_'FileManager.root'}</a>
             {foreach $path as $dir}
                 / <a data-ajax-off="history" class="ajax" n:href="changeDir $dir->link">{$dir->name}</a>
             {/foreach}
         </span>
         <span class="buttons">
-            <a class="fa fa-file ajax" data-ajax-off="history" n:href="addFile!" title="{_'default.fileManager.addFile'}"></a>
-            <a class="fa fa-folder ajax" data-ajax-off="history" n:href="addDir!" title="{_'default.fileManager.addDir'}"></a>
+            <a class="fa fa-file ajax" data-ajax-off="history" n:href="addFile!" title="{_'FileManager.addFile'}"></a>
+            <a class="fa fa-folder ajax" data-ajax-off="history" n:href="addDir!" title="{_'FileManager.addDir'}"></a>
         </span>
     </div>
     <div class="fileManagerContent">
