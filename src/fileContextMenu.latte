@@ -1,16 +1,16 @@
 <div class="fileContextMenu">
     <ul>
         <li>
-            <a class="fm-download" n:href="download $file->name">{if $file->isDir}{_'FileManager.compressAndDownload'}{else}{_'FileManager.download'}{/if}</a>
+            <a class="fm-download" n:href="download $file->name">{if $file->isDir}{_'fileManager.compressAndDownload'}{else}{_'fileManager.download'}{/if}</a>
         </li>
         <li n:if="$editable && !$file->isDir && $file->editable">
-            <a class="fm-edit ajax" data-ajax-off="history" n:href="edit $file->name">{_'FileManager.edit'}</a>
+            <a class="fm-edit ajax" data-ajax-off="history" n:href="edit $file->name">{_'fileManager.edit'}</a>
         </li>
         <li n:if="$editable">
-            <a class="fm-rename ajax" data-ajax-off="history" n:href="rename $file->name" >{_'FileManager.rename'}</a>
+            <a class="fm-rename ajax" data-ajax-off="history" n:href="rename $file->name" >{_'fileManager.rename'}</a>
         </li>
         <li n:if="$editable">
-            <a class="fm-delete ajax" data-ajax-off="history" n:href="delete $file->name" data-confirm="{_'FileManager.confirmDelete'} '{$file->name}'?">{_'FileManager.delete'}</a>
+            <a class="fm-delete ajax" data-ajax-off="history" n:href="delete $file->name" data-confirm="{_'fileManager.confirmDelete'} '{$file->name}'?">{_'fileManager.delete'}</a>
         </li>
     </ul>
 </div>

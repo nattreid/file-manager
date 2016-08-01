@@ -122,7 +122,7 @@
   opacity: 1;
 }
 .fileManagerContainer .fileManagerContent .itemContainer {
-  display: inline-block;
+  display: inline-flex;
   width: 120px;
 }
 .fileManagerContainer .fileManagerContent .itemContainer .properties {

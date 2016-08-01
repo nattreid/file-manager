@@ -6,7 +6,7 @@
             <img src="{link file! $viewFile->name}"/>
         {else}
             {$viewFile->name}
-            <span class="properties">{_'FileManager.align'}<input type="checkbox" checked="true"/></span>
+            <span class="properties">{_'fileManager.align'}<input type="checkbox" checked="true"/></span>
                 {if $edit}
                     {form editForm}
                         {input content, class => niceScroll}
@@ -18,6 +18,6 @@
         {/if}
     </div>
     <script type="text/javascript">
-        window.FileManager.redrawViewer();
+        window.fileManager.redrawViewer();
     </script>
 </div>

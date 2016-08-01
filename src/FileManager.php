@@ -8,7 +8,9 @@ use Nette\Application\UI\Control,
     NAttreid\Utils\File,
     NAttreid\Form\Form,
     NAttreid\Form\IFormFactory,
-    IPub\FlashMessages\FlashNotifier;
+    IPub\FlashMessages\FlashNotifier,
+    IPub\FlashMessages\SessionStorage,
+    Nette\Localization\ITranslator;
 
 /**
  * FileManager
@@ -262,6 +264,7 @@ class FileManager extends Control {
      */
     protected function createComponentEditForm() {
         $form = $this->formFactory->create();
+        $form->setTranslator();
         $form->setAjaxRequest();
 
         $form->addHidden('id');
@@ -269,13 +272,13 @@ class FileManager extends Control {
         $form->addTextArea('content')
                 ->setAttribute('autofocus', TRUE);
 
-        $form->addSubmit('save', 'FileManager.save');
+        $form->addSubmit('save', $this->translator->translate('fileManager.save'));
 
         $form->onSuccess[] = function(Form $form, $values) {
             if ($this->presenter->isAjax() && $this->editable) {
                 file_put_contents($this->getFullPath($values->id), $values->content);
 
-                $this->flashNotifier->success($this->translator->translate('FileManager.dataSaved'));
+                $this->flashNotifier->success($this->translator->translate('fileManager.dataSaved'));
                 $this->redrawControl('fileManagerContainer');
                 $this->presenter['flashMessages']->redrawControl();
             } else {

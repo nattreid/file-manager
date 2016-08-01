@@ -1,19 +1,19 @@
 <div class="properties">
     <table>
         <tr>
-            <td>{_'FileManager.name'}</td>
+            <td>{_'fileManager.name'}</td>
             <th>{$file->name}</th>
         </tr>
         <tr>
-            <td>{_'FileManager.type'}</td>
+            <td>{_'fileManager.type'}</td>
             <th>{$file->type}</th>
         </tr>
         <tr>
-            <td>{_'FileManager.size'}</td>
-            <th>{if $file->size === NULL}{_'FileManager.loading'}{else}{$file->size|size}{/if}</th>
+            <td>{_'fileManager.size'}</td>
+            <th>{if $file->size === NULL}{_'fileManager.loading'}{else}{$file->size|size}{/if}</th>
         </tr>
         <tr>
-            <td>{_'FileManager.change'}</td>
+            <td>{_'fileManager.change'}</td>
             <th>{$file->change|localeDateTime}</th>
         </tr>
     </table>
