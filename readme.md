@@ -22,6 +22,10 @@ function createComponentList(){
     $basePath = 'korenovyAdresar';
     $manager = $this->fileManagerFactory->create($basePath);
     $manager->editable(true); // povolí editaci, mazání a přejmenování souborů
+
+    // pro zmenu jazyka
+    $manager->getTranslator()->setLang('cs');
+
     return $manager;
 }
 ```

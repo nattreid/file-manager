@@ -37,6 +37,9 @@ class FileManager extends Control {
     /** @var FlashNotifier */
     private $flashNotifier;
 
+    /** @var ITranslator */
+    private $translator;
+
     public function __construct($basePath, IFormFactory $formFactory, FlashNotifier $flashNotifier) {
         $this->formFactory = $formFactory;
         $this->flashNotifier = $flashNotifier;
@@ -44,6 +47,23 @@ class FileManager extends Control {
             $basePath .= DIRECTORY_SEPARATOR;
         }
         $this->basePath = $basePath;
+        $this->translator = new Lang\Translator;
+    }
+
+    /**
+     * Nastavi translator
+     * @param ITranslator $translator
+     */
+    public function setTranslator(ITranslator $translator) {
+        $this->translator = $translator;
+    }
+
+    /**
+     * Vrati Translator
+     * @return Lang\Translator
+     */
+    public function getTranslator() {
+        return $this->translator;
     }
 
     /**
@@ -293,6 +313,8 @@ class FileManager extends Control {
     }
 
     public function render() {
+        $this->template->addFilter('translate', [$this->translator, 'translate']);
+
         if (!isset($this->template->files)) {
             $this->template->files = $this->getFiles();
         }
