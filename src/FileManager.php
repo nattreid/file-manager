@@ -274,19 +274,26 @@ class FileManager extends Control {
 
         $form->addSubmit('save', $this->translator->translate('fileManager.save'));
 
-        $form->onSuccess[] = function(Form $form, $values) {
-            if ($this->presenter->isAjax() && $this->editable) {
-                file_put_contents($this->getFullPath($values->id), $values->content);
-
-                $this->flashNotifier->success($this->translator->translate('fileManager.dataSaved'));
-                $this->redrawControl('fileManagerContainer');
-                $this->presenter['flashMessages']->redrawControl();
-            } else {
-                $this->presenter->terminate();
-            }
-        };
+        $form->onSuccess[] = [$this, 'editFormSucceeded'];
 
         return $form;
+    }
+
+    /**
+     * Zpracovani editace
+     * @param Form $form
+     * @param array $values
+     */
+    public function editFormSucceeded(Form $form, $values) {
+        if ($this->presenter->isAjax() && $this->editable) {
+            file_put_contents($this->getFullPath($values->id), $values->content);
+
+            $this->flashNotifier->success($this->translator->translate('fileManager.dataSaved'));
+            $this->redrawControl('fileManagerContainer');
+            $this->presenter['flashMessages']->redrawControl();
+        } else {
+            $this->presenter->terminate();
+        }
     }
 
     /**
@@ -302,17 +309,24 @@ class FileManager extends Control {
         $form->addText('name')
                 ->setAttribute('autofocus', TRUE);
 
-        $form->onSuccess[] = function(Form $form, $values) {
-            if ($this->presenter->isAjax() && $this->editable) {
-                rename($this->getFullPath($values->id), $this->getFullPath($values->name));
-
-                $this->redrawControl('fileManagerContainer');
-            } else {
-                $this->presenter->terminate();
-            }
-        };
+        $form->onSuccess[] = [$this, 'renameFormSucceeded'];
 
         return $form;
+    }
+
+    /**
+     * Prejmenovani souboru/slozky
+     * @param Form $form
+     * @param array $values
+     */
+    public function renameFormSucceeded(Form $form, $values) {
+        if ($this->presenter->isAjax() && $this->editable) {
+            rename($this->getFullPath($values->id), $this->getFullPath($values->name));
+
+            $this->redrawControl('fileManagerContainer');
+        } else {
+            $this->presenter->terminate();
+        }
     }
 
     public function render() {
