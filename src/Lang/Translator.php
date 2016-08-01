@@ -1,6 +1,6 @@
 <?php
 
-namespace NAttreid\CookiePolicy\Lang;
+namespace NAttreid\Filemanager\Lang;
 
 /**
  * Translator
