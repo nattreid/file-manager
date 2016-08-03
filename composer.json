@@ -18,7 +18,7 @@
     "require": {
         "php": ">= 5.6",
         "nette/application": "~2.4",
-        "ipub/flash-messages": "~1.0",
+        "nattreid/flash-messages": "~1.0",
         "nattreid/form": "~1.0",
         "nattreid/utils": "~1.0",
         "nextras/secured-links": "~1.3"
