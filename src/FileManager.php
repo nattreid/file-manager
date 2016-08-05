@@ -290,7 +290,6 @@ class FileManager extends Control {
 
             $this->flashNotifier->success($this->translator->translate('fileManager.dataSaved'));
             $this->redrawControl('fileManagerContainer');
-            $this->presenter['flashMessages']->redrawControl();
         } else {
             $this->presenter->terminate();
         }
