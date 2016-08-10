@@ -10,7 +10,8 @@ use Nette\Application\UI\Control,
     NAttreid\Form\IFormFactory,
     IPub\FlashMessages\FlashNotifier,
     IPub\FlashMessages\SessionStorage,
-    Nette\Localization\ITranslator;
+    Nette\Localization\ITranslator,
+    Nette\Utils\ArrayHash;
 
 /**
  * FileManager
@@ -282,7 +283,7 @@ class FileManager extends Control {
     /**
      * Zpracovani editace
      * @param Form $form
-     * @param array $values
+     * @param ArrayHash $values
      */
     public function editFormSucceeded(Form $form, $values) {
         if ($this->presenter->isAjax() && $this->editable) {
@@ -316,7 +317,7 @@ class FileManager extends Control {
     /**
      * Prejmenovani souboru/slozky
      * @param Form $form
-     * @param array $values
+     * @param ArrayHash $values
      */
     public function renameFormSucceeded(Form $form, $values) {
         if ($this->presenter->isAjax() && $this->editable) {
