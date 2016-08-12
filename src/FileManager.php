@@ -7,7 +7,6 @@ use Nette\Application\UI\Control,
     Nette\Application\Responses\FileResponse,
     NAttreid\Utils\File,
     NAttreid\Form\Form,
-    NAttreid\Form\IFormFactory,
     IPub\FlashMessages\FlashNotifier,
     IPub\FlashMessages\SessionStorage,
     Nette\Localization\ITranslator,
@@ -43,8 +42,7 @@ class FileManager extends Control {
     /** @var ITranslator */
     private $translator;
 
-    public function __construct($basePath, IFormFactory $formFactory, SessionStorage $sessionStorage) {
-        $this->formFactory = $formFactory;
+    public function __construct($basePath, SessionStorage $sessionStorage) {
         $this->flashNotifier = new FlashNotifier($sessionStorage);
         if (!\Nette\Utils\Strings::endsWith($basePath, DIRECTORY_SEPARATOR)) {
             $basePath .= DIRECTORY_SEPARATOR;
@@ -264,8 +262,7 @@ class FileManager extends Control {
      * @return Form
      */
     protected function createComponentEditForm() {
-        $form = $this->formFactory->create();
-        $form->setTranslator();
+        $form = new Form;
         $form->setAjaxRequest();
 
         $form->addHidden('id');
@@ -301,7 +298,7 @@ class FileManager extends Control {
      * @return Form
      */
     protected function createComponentRenameForm() {
-        $form = $this->formFactory->create();
+        $form = new Form;
         $form->setAjaxRequest();
 
         $form->addHidden('id');
