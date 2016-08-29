@@ -22,10 +22,10 @@
     "jquery": "~1.12",
     "font-awesome": "~4.6",
     "history.nette.ajax.js": "~2.0",
-    "nette.ajax.js": "~2.2",
+    "nette.ajax.js": "~2.1",
     "utils": "git@git.newtravel.cz:nattreid/utils.git#~1.0"
   },
   "resolutions": {
-    "nette.ajax.js": "~2.2"
+    "nette.ajax.js": "~2.1"
   }
 }
