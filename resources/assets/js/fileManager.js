@@ -88,48 +88,54 @@
             }
         }
 
-        $(document).on('mousemove', '.no-touchevents .fileManagerContainer .fileManagerContent .itemContainer a.item', function (event) {
-            position = $(this).closest('.itemContainer').find('.properties').onPosition(event);
+        $(document).on('mousemove', '.fileManagerContainer .fileManagerContent .itemContainer a.item', function (event) {
+            if (!window.Modernizr.touchevents) {
+                position = $(this).closest('.itemContainer').find('.properties').onPosition(event);
+            }
         });
 
         $(document).ajaxStart(function () {
             disableCallSizeInfo();
         });
 
-        $(document).on('mouseenter', '.no-touchevents .fileManagerContainer .fileManagerContent .itemContainer a.item', function () {
-            var item = $(this).closest('.itemContainer');
+        $(document).on('mouseenter', '.fileManagerContainer .fileManagerContent .itemContainer a.item', function () {
+            if (!window.Modernizr.touchevents) {
+                var item = $(this).closest('.itemContainer');
 
-            timer = setTimeout(function () {
+                timer = setTimeout(function () {
 
-                if (item.data('request') === 0) {
-                    item.data('request', 1);
-                    ajax = $.nette.ajax(item.data('file-size-handler'))
-                            .success(function () {
-                                item.find('.properties')
-                                        .show()
-                                        .css({
-                                            left: position.left,
-                                            top: position.top
-                                        });
-                                item.data('request', 2);
-                            })
-                            .complete(function () {
-                                if (item.data('request') !== 2) {
-                                    item.data('request', 0);
-                                }
-                                ajax = null;
-                            });
-                    timer = null;
-                }
-            }, 2000);
-            item.find('.properties').show();
+                    if (item.data('request') === 0) {
+                        item.data('request', 1);
+                        ajax = $.nette.ajax(item.data('file-size-handler'))
+                                .success(function () {
+                                    item.find('.properties')
+                                            .show()
+                                            .css({
+                                                left: position.left,
+                                                top: position.top
+                                            });
+                                    item.data('request', 2);
+                                })
+                                .complete(function () {
+                                    if (item.data('request') !== 2) {
+                                        item.data('request', 0);
+                                    }
+                                    ajax = null;
+                                });
+                        timer = null;
+                    }
+                }, 2000);
+                item.find('.properties').show();
+            }
         });
 
-        $(document).on('mouseleave', '.no-touchevents .fileManagerContainer .fileManagerContent .itemContainer a.item', function () {
-            disableCallSizeInfo();
-            $(this).closest('.itemContainer')
-                    .find('.properties')
-                    .hide();
+        $(document).on('mouseleave', '.fileManagerContainer .fileManagerContent .itemContainer a.item', function () {
+            if (!window.Modernizr.touchevents) {
+                disableCallSizeInfo();
+                $(this).closest('.itemContainer')
+                        .find('.properties')
+                        .hide();
+            }
         });
 
         // *************************************************************************
@@ -139,31 +145,31 @@
             return false;
         });
 
-        $(document).on('contextmenu', '.no-touchevents .fileManagerContainer .fileManagerContent .itemContainer', function (event) {
-            disableCallSizeInfo();
-            $(this).find('.properties').hide();
-
-            $(this).find('.fileContextMenu').hide();
+        $(document).on('contextmenu', '.fileManagerContainer .fileManagerContent .itemContainer', function (event) {
             var menu = $(this).find('.fileContextMenu');
             menu.onPosition(event, -30, -30);
+
+            if (window.Modernizr.touchevents) {
+                $(this).closest('.fileManagerContent').find('.fileContextMenu').hide();
+
+                menu.clickOut(function (o) {
+                    o.hide();
+                    return true;
+                });
+            } else {
+                disableCallSizeInfo();
+                $(this).find('.properties').hide();
+                $(this).find('.fileContextMenu').hide();
+            }
+
             menu.show();
             return false;
         });
 
-        $(document).on('contextmenu', '.touchevents .fileManagerContainer .fileManagerContent .itemContainer', function (event) {
-            $(this).closest('.fileManagerContent').find('.fileContextMenu').hide();
-            var menu = $(this).find('.fileContextMenu');
-            menu.onPosition(event, -30, -30);
-            menu.show();
-            menu.clickOut(function (o) {
-                o.hide();
-                return true;
-            });
-            return false;
-        });
-
-        $(document).on('mouseleave', '.no-touchevents .fileManagerContainer .fileManagerContent .itemContainer .fileContextMenu', function () {
-            $(this).hide();
+        $(document).on('mouseleave', '.fileManagerContainer .fileManagerContent .itemContainer .fileContextMenu', function () {
+            if (!window.Modernizr.touchevents) {
+                $(this).hide();
+            }
         });
 
         // *************************************************************************

@@ -1,22 +1,32 @@
 {
-    "name": "filemanager",
-    "description": "File Manager for Nette Framework",
-    "license": ["Unlicense"],
-    "authors": [
-        {
-            "name": "Attreid",
-            "email": "attreid@gmail.com"
-        }
-    ],
-    "ignore": [
-        "src",
-        "*.json"
-    ],
-    "dependencies": {
-        "jquery": "~1.12",
-        "font-awesome": "~4.6",
-        "history.nette.ajax.js": "~2.0",
-        "nette.ajax.js": "~2.1",
-        "utils": "git@git.newtravel.cz:nattreid/utils.git#~1.0"
+  "name": "filemanager",
+  "description": "File Manager for Nette Framework",
+  "license": [
+    "Unlicense"
+  ],
+  "authors": [
+    {
+      "name": "Attreid",
+      "email": "attreid@gmail.com"
     }
+  ],
+  "main": [
+    "./assets/fileManager.css",
+    "./assets/fileManager.js"
+  ],
+  "ignore": [
+    "src",
+    "*.json"
+  ],
+  "dependencies": {
+    "jquery": "~1.12",
+    "font-awesome": "~4.6",
+    "modernizr": "~3.3",
+    "history.nette.ajax.js": "~2.0",
+    "nette.ajax.js": "~2.1",
+    "utils": "git@git.newtravel.cz:nattreid/utils.git#~1.0"
+  },
+  "resolutions": {
+    "nette.ajax.js": "~2.1"
+  }
 }

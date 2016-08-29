@@ -22,7 +22,7 @@
                                 {input name}
                             {/form}
                         {else}
-                            <span class="text">{if strlen($file->name) > 20}{$file->name|substr:0:17}...{else}{$file->name}{/if}</span>
+                            <span class="text">{$file->name}</span>
                         {/if}
                     </a>
                     {include 'fileContextMenu.latte', file => $file}

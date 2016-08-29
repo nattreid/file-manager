@@ -33,9 +33,6 @@ class FileManager extends Control {
     /** @var boolean */
     private $editable = FALSE;
 
-    /** @var IFormFactory */
-    private $formFactory;
-
     /** @var FlashNotifier */
     private $flashNotifier;
 
@@ -78,7 +75,6 @@ class FileManager extends Control {
     /**
      * Otevreni souboru nebo adresare
      * @param string $fileName
-     * @secured
      */
     public function handleOpen($fileName) {
         if (strpos($fileName, '..' . DIRECTORY_SEPARATOR) !== FALSE) {
@@ -112,7 +108,6 @@ class FileManager extends Control {
     /**
      * Zmena adresare
      * @param string $dir
-     * @secured
      * @throws \InvalidArgumentException
      */
     public function handleChangeDir($dir = NULL) {

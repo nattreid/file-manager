@@ -122,8 +122,11 @@
   opacity: 1;
 }
 .fileManagerContainer .fileManagerContent .itemContainer {
-  display: inline-flex;
+  display: inline-block;
   width: 120px;
+  overflow: hidden;
+  word-wrap: break-word;
+  vertical-align: top;
 }
 .fileManagerContainer .fileManagerContent .itemContainer .properties {
   display: none;
