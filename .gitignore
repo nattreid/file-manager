@@ -3,3 +3,4 @@
 /resources/assets/vendor
 /node_modules
 /composer.lock
+.idea/
