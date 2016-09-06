@@ -6,9 +6,9 @@
 
     window.FileManager = {};
 
-    window.FileManager.viewer;
-    window.FileManager.container;
-    window.FileManager.loaded;
+    window.FileManager.viewer = null;
+    window.FileManager.container = null;
+    window.FileManager.loaded = null;
 
 
     window.FileManager.redrawViewer = function () {
@@ -107,21 +107,21 @@
                     if (item.data('request') === 0) {
                         item.data('request', 1);
                         ajax = $.nette.ajax(item.data('file-size-handler'))
-                                .success(function () {
-                                    item.find('.properties')
-                                            .show()
-                                            .css({
-                                                left: position.left,
-                                                top: position.top
-                                            });
-                                    item.data('request', 2);
-                                })
-                                .complete(function () {
-                                    if (item.data('request') !== 2) {
-                                        item.data('request', 0);
-                                    }
-                                    ajax = null;
-                                });
+                            .success(function () {
+                                item.find('.properties')
+                                    .show()
+                                    .css({
+                                        left: position.left,
+                                        top: position.top
+                                    });
+                                item.data('request', 2);
+                            })
+                            .complete(function () {
+                                if (item.data('request') !== 2) {
+                                    item.data('request', 0);
+                                }
+                                ajax = null;
+                            });
                         timer = null;
                     }
                 }, 2000);
@@ -133,14 +133,14 @@
             if (!window.Modernizr.touchevents) {
                 disableCallSizeInfo();
                 $(this).closest('.itemContainer')
-                        .find('.properties')
-                        .hide();
+                    .find('.properties')
+                    .hide();
             }
         });
 
         // *************************************************************************
         // context menu
-        $(document).on('click', '.fileManagerContainer .fileManagerContent .itemContainer a.item', function (event) {
+        $(document).on('click', '.fileManagerContainer .fileManagerContent .itemContainer a.item', function () {
             disableCallSizeInfo();
             return false;
         });
@@ -178,7 +178,7 @@
             $(this).closest('.viewer').fadeOut();
         });
 
-        $(document).on('change', '.fileManagerContainer .viewer .data input[type="checkbox"]', function (ev) {
+        $(document).on('change', '.fileManagerContainer .viewer .data input[type="checkbox"]', function () {
             var obj = $(this).closest('.data').find('pre, textarea');
             if ($(this).is(':checked')) {
                 obj.removeClass('notAlign');

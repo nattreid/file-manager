@@ -107,21 +107,21 @@
                     if (item.data('request') === 0) {
                         item.data('request', 1);
                         ajax = $.nette.ajax(item.data('file-size-handler'))
-                                .success(function () {
-                                    item.find('.properties')
-                                            .show()
-                                            .css({
-                                                left: position.left,
-                                                top: position.top
-                                            });
-                                    item.data('request', 2);
-                                })
-                                .complete(function () {
-                                    if (item.data('request') !== 2) {
-                                        item.data('request', 0);
-                                    }
-                                    ajax = null;
-                                });
+                            .success(function () {
+                                item.find('.properties')
+                                    .show()
+                                    .css({
+                                        left: position.left,
+                                        top: position.top
+                                    });
+                                item.data('request', 2);
+                            })
+                            .complete(function () {
+                                if (item.data('request') !== 2) {
+                                    item.data('request', 0);
+                                }
+                                ajax = null;
+                            });
                         timer = null;
                     }
                 }, 2000);
@@ -133,8 +133,8 @@
             if (!window.Modernizr.touchevents) {
                 disableCallSizeInfo();
                 $(this).closest('.itemContainer')
-                        .find('.properties')
-                        .hide();
+                    .find('.properties')
+                    .hide();
             }
         });
 

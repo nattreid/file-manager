@@ -10,7 +10,8 @@
             <a class="fm-rename ajax" data-ajax-off="history" n:href="rename $file->name" >{_'fileManager.rename'}</a>
         </li>
         <li n:if="$editable">
-            <a class="fm-delete ajax" data-ajax-off="history" n:href="delete $file->name" data-confirm="{_'fileManager.confirmDelete'} '{$file->name}'?">{_'fileManager.delete'}</a>
+            <a class="fm-delete ajax" data-ajax-off="history" n:href="delete $file->name"
+               data-confirm="{_'fileManager.confirmDelete'} '{$file->name}'?">{_'fileManager.delete'}</a>
         </li>
     </ul>
 </div>

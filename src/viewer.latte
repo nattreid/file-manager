@@ -5,15 +5,15 @@
         {if $viewFile->type == 'image'}
             <img src="{link file! $viewFile->name}"/>
         {else}
-            {$viewFile->name}
-            <span class="properties">{_'fileManager.align'}<input type="checkbox" checked="true"/></span>
-                {if $edit}
-                    {form editForm}
-                        {input content, class => niceScroll}
+        {$viewFile->name}
+            <span class="properties">{_'fileManager.align'}<input type="checkbox" checked="checked"/></span>
+            {if $edit}
+                {form editForm}
+                    {input content, class => niceScroll}
                     <div class="buttons">{input save}</div>
                 {/form}
             {else}
-                <pre n:class="!$user->isMobile() ? niceScroll">{$viewFile->data}</pre>
+                <pre n:class="!$user->isMobile() ? niceScroll">{$viewFile->content}</pre>
             {/if}
         {/if}
     </div>
