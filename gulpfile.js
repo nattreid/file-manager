@@ -1,9 +1,9 @@
 var gulp = require('gulp'),
-        less = require('gulp-less'),
-        minify = require('gulp-clean-css'),
-        uglify = require('gulp-uglify'),
-        concat = require('gulp-concat'),
-        rename = require('gulp-rename');
+    less = require('gulp-less'),
+    minify = require('gulp-clean-css'),
+    uglify = require('gulp-uglify'),
+    concat = require('gulp-concat'),
+    rename = require('gulp-rename');
 
 var paths = {
     'dev': {
@@ -19,8 +19,8 @@ gulp.task('js', function () {
         paths.dev.js + 'fileManager.js',
         paths.dev.js + 'modernizr-touch.js'
     ])
-            .pipe(concat('fileManager.js'))
-            .pipe(gulp.dest(paths.production));
+        .pipe(concat('fileManager.js'))
+        .pipe(gulp.dest(paths.production));
 });
 
 gulp.task('jsMin', function () {
@@ -28,23 +28,23 @@ gulp.task('jsMin', function () {
         paths.dev.js + 'fileManager.js',
         paths.dev.js + 'modernizr-touch.js'
     ])
-            .pipe(concat('fileManager.min.js'))
-            .pipe(uglify())
-            .pipe(gulp.dest(paths.production));
+        .pipe(concat('fileManager.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(paths.production));
 });
 
 gulp.task('css', function () {
     return gulp.src(paths.dev.less + 'fileManager.less')
-            .pipe(less())
-            .pipe(gulp.dest(paths.production));
+        .pipe(less())
+        .pipe(gulp.dest(paths.production));
 });
 
 gulp.task('cssMin', function () {
     return gulp.src(paths.dev.less + 'fileManager.less')
-            .pipe(rename({suffix: '.min'}))
-            .pipe(less())
-            .pipe(minify({keepSpecialComments: 0}))
-            .pipe(gulp.dest(paths.production));
+        .pipe(rename({suffix: '.min'}))
+        .pipe(less())
+        .pipe(minify({keepSpecialComments: 0}))
+        .pipe(gulp.dest(paths.production));
 });
 
 gulp.task('watch', function () {
