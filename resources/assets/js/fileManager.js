@@ -4,14 +4,14 @@
         return;
     }
 
-    window.FileManager = {};
+    window.fileManager = {};
 
-    window.FileManager.viewer = null;
-    window.FileManager.container = null;
-    window.FileManager.loaded = null;
+    window.fileManager.viewer = null;
+    window.fileManager.container = null;
+    window.fileManager.loaded = null;
 
 
-    window.FileManager.redrawViewer = function () {
+    window.fileManager.redrawViewer = function () {
         this.loaded = false;
         this.viewer = $('.fileManagerContainer .viewer');
         this.container = this.viewer.find('.viewer-container');
@@ -23,7 +23,7 @@
 
     };
 
-    window.FileManager.resize = function () {
+    window.fileManager.resize = function () {
         if (this.container) {
             if (this.container.hasClass('image')) {
                 var img = this.container.find('img');
@@ -50,14 +50,14 @@
                     img.width(width);
                     img.height(height);
 
-                    window.FileManager.container.centerFixed();
+                    window.fileManager.container.centerFixed();
                 }
 
                 if (this.loaded) {
                     resizeImage();
                 } else {
                     img.load(function () {
-                        window.FileManager.loaded = true;
+                        window.fileManager.loaded = true;
                         resizeImage();
                     });
                 }
@@ -188,7 +188,7 @@
         });
 
         $(window).on('resize.fileManager', function () {
-            window.FileManager.resize();
+            window.fileManager.resize();
         });
 
     });

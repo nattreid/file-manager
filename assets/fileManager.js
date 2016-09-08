@@ -4,14 +4,14 @@
         return;
     }
 
-    window.FileManager = {};
+    window.fileManager = {};
 
-    window.FileManager.viewer;
-    window.FileManager.container;
-    window.FileManager.loaded;
+    window.fileManager.viewer = null;
+    window.fileManager.container = null;
+    window.fileManager.loaded = null;
 
 
-    window.FileManager.redrawViewer = function () {
+    window.fileManager.redrawViewer = function () {
         this.loaded = false;
         this.viewer = $('.fileManagerContainer .viewer');
         this.container = this.viewer.find('.viewer-container');
@@ -23,7 +23,7 @@
 
     };
 
-    window.FileManager.resize = function () {
+    window.fileManager.resize = function () {
         if (this.container) {
             if (this.container.hasClass('image')) {
                 var img = this.container.find('img');
@@ -50,14 +50,14 @@
                     img.width(width);
                     img.height(height);
 
-                    window.FileManager.container.centerFixed();
+                    window.fileManager.container.centerFixed();
                 }
 
                 if (this.loaded) {
                     resizeImage();
                 } else {
                     img.load(function () {
-                        window.FileManager.loaded = true;
+                        window.fileManager.loaded = true;
                         resizeImage();
                     });
                 }
@@ -140,7 +140,7 @@
 
         // *************************************************************************
         // context menu
-        $(document).on('click', '.fileManagerContainer .fileManagerContent .itemContainer a.item', function (event) {
+        $(document).on('click', '.fileManagerContainer .fileManagerContent .itemContainer a.item', function () {
             disableCallSizeInfo();
             return false;
         });
@@ -178,7 +178,7 @@
             $(this).closest('.viewer').fadeOut();
         });
 
-        $(document).on('change', '.fileManagerContainer .viewer .data input[type="checkbox"]', function (ev) {
+        $(document).on('change', '.fileManagerContainer .viewer .data input[type="checkbox"]', function () {
             var obj = $(this).closest('.data').find('pre, textarea');
             if ($(this).is(':checked')) {
                 obj.removeClass('notAlign');
@@ -188,7 +188,7 @@
         });
 
         $(window).on('resize.fileManager', function () {
-            window.FileManager.resize();
+            window.fileManager.resize();
         });
 
     });
