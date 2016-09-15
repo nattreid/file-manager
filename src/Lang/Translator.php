@@ -27,7 +27,7 @@ class Translator implements \Nette\Localization\ITranslator
 	private function getTranslations()
 	{
 		if ($this->translations === NULL) {
-			$this->setLang('cs');
+			$this->setLang('en');
 		}
 		return $this->translations;
 	}
