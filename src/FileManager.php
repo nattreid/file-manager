@@ -33,7 +33,7 @@ class FileManager extends Control
 	private $basePath;
 
 	/** @var boolean */
-	private $editable = FALSE;
+	private $editable = false;
 
 	/** @var FlashNotifier */
 	private $flashNotifier;
@@ -74,7 +74,7 @@ class FileManager extends Control
 	 * Nastavi prava pro editaci
 	 * @param boolean $editable
 	 */
-	public function editable($editable = TRUE)
+	public function editable($editable = true)
 	{
 		$this->editable = $editable;
 	}
@@ -85,7 +85,7 @@ class FileManager extends Control
 	 */
 	public function handleOpen($fileName)
 	{
-		if (strpos($fileName, '..' . DIRECTORY_SEPARATOR) !== FALSE) {
+		if (strpos($fileName, '..' . DIRECTORY_SEPARATOR) !== false) {
 			throw new \InvalidArgumentException;
 		}
 		$file = $this->getFileInfo($fileName);
@@ -106,7 +106,7 @@ class FileManager extends Control
 	 */
 	private function viewFile($file)
 	{
-		if (strpos($file->type, 'image') !== FALSE) {
+		if (strpos($file->type, 'image') !== false) {
 			$file->type = 'image';
 		} else {
 			$file->content = @file_get_contents($this->getFullPath($file->name));
@@ -119,9 +119,9 @@ class FileManager extends Control
 	 * @param string $dir
 	 * @throws \InvalidArgumentException
 	 */
-	public function handleChangeDir($dir = NULL)
+	public function handleChangeDir($dir = null)
 	{
-		if (strpos($dir, '..' . DIRECTORY_SEPARATOR) !== FALSE || !is_dir($this->getBasePath() . $dir)) {
+		if (strpos($dir, '..' . DIRECTORY_SEPARATOR) !== false || !is_dir($this->getBasePath() . $dir)) {
 			throw new \InvalidArgumentException;
 		}
 		$this->path = $dir;
@@ -136,7 +136,7 @@ class FileManager extends Control
 	public function handleFileSize($fileName)
 	{
 		if ($this->presenter->isAjax()) {
-			$this->template->files = [$this->getFileInfo($fileName, TRUE)];
+			$this->template->files = [$this->getFileInfo($fileName, true)];
 			$this->redrawControl('itemsContainer');
 		} else {
 			$this->presenter->terminate();
@@ -169,8 +169,8 @@ class FileManager extends Control
 	public function handleFile($fileName)
 	{
 		$file = $this->getFileInfo($fileName);
-		if (strpos($file->type, 'image') !== FALSE) {
-			$response = new FileResponse($this->getFullPath($file->name), $file->name, $file->type, FALSE);
+		if (strpos($file->type, 'image') !== false) {
+			$response = new FileResponse($this->getFullPath($file->name), $file->name, $file->type, false);
 			$this->presenter->sendResponse($response);
 		} else {
 			$this->presenter->terminate();
@@ -213,7 +213,7 @@ class FileManager extends Control
 					'id' => $file->name,
 					'content' => $file->content
 				]);
-				$this->template->editFile = TRUE;
+				$this->template->editFile = true;
 			}
 			$this->redrawControl('fileManagerContainer');
 		} else {
@@ -244,7 +244,7 @@ class FileManager extends Control
 		if ($this->presenter->isAjax() && $this->editable) {
 			$files = $this->getFiles();
 			$fileName = $this->generateName('newFile');
-			file_put_contents($this->getFullPath($fileName), NULL);
+			file_put_contents($this->getFullPath($fileName), null);
 			array_unshift($files, $this->rename($fileName));
 			$this->template->files = $files;
 			$this->redrawControl();
@@ -282,7 +282,7 @@ class FileManager extends Control
 		$form->addHidden('id');
 
 		$form->addTextArea('content')
-			->setAttribute('autofocus', TRUE);
+			->setAttribute('autofocus', true);
 
 		$form->addSubmit('save', $this->translator->translate('fileManager.save'));
 
@@ -320,7 +320,7 @@ class FileManager extends Control
 		$form->addHidden('id');
 
 		$form->addText('name')
-			->setAttribute('autofocus', TRUE);
+			->setAttribute('autofocus', true);
 
 		$form->onSuccess[] = [$this, 'renameFormSucceeded'];
 
@@ -353,7 +353,7 @@ class FileManager extends Control
 
 		$this->template->path = [];
 		$link = '';
-		if ($this->path !== NULL) {
+		if ($this->path !== null) {
 			foreach ($this->getPath() as $dir) {
 				$obj = new \stdClass;
 				$obj->name = $dir;
@@ -377,7 +377,7 @@ class FileManager extends Control
 	private function rename($fileName)
 	{
 		$file = $this->getFileInfo($fileName);
-		$file->rename = TRUE;
+		$file->rename = true;
 
 		$form = $this['renameForm'];
 		$form->setDefaults([
@@ -396,7 +396,7 @@ class FileManager extends Control
 		if ($this->path) {
 			return explode(DIRECTORY_SEPARATOR, $this->path);
 		}
-		return NULL;
+		return null;
 	}
 
 	/**
@@ -406,7 +406,7 @@ class FileManager extends Control
 	 */
 	private function getBasePath()
 	{
-		if ($this->basePath === NULL) {
+		if ($this->basePath === null) {
 			throw new \Nette\InvalidArgumentException('Method setBasePath($path) does not call');
 		}
 		return $this->basePath;
@@ -426,9 +426,9 @@ class FileManager extends Control
 	 * @param string $file
 	 * @return string
 	 */
-	private function getFullPath($file = NULL)
+	private function getFullPath($file = null)
 	{
-		return $this->getBasePath() . $this->path . ($file !== NULL ? DIRECTORY_SEPARATOR . $file : '');
+		return $this->getBasePath() . $this->path . ($file !== null ? DIRECTORY_SEPARATOR . $file : '');
 	}
 
 	/**
@@ -465,7 +465,7 @@ class FileManager extends Control
 	 * @param boolean $size
 	 * @return Finfo
 	 */
-	private function getFileInfo($fileName, $size = FALSE)
+	private function getFileInfo($fileName, $size = false)
 	{
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		$file = $this->createFileInfo(new \SplFileInfo($this->getFullPath($fileName)), $finfo, $size);
@@ -480,24 +480,24 @@ class FileManager extends Control
 	 * @param boolean $size
 	 * @return Finfo
 	 */
-	private function createFileInfo($file, $finfo, $size = FALSE)
+	private function createFileInfo($file, $finfo, $size = false)
 	{
 		$obj = new Finfo;
 		$obj->name = $file->getFilename();
 		$obj->type = finfo_file($finfo, $file->getPathname());
-		$obj->size = $size ? File::size($file->getPathname()) : NULL;
+		$obj->size = $size ? File::size($file->getPathname()) : null;
 		$obj->change = filemtime($file->getPathname());
 		$obj->isDir = $file->isDir();
-		$obj->rename = FALSE;
+		$obj->rename = false;
 		switch ($obj->type) {
 			default:
-				$obj->editable = FALSE;
+				$obj->editable = false;
 				break;
 			case 'text/plain':
 			case 'application/xml':
 			case 'text/x-php':
 			case 'text/html':
-				$obj->editable = TRUE;
+				$obj->editable = true;
 				break;
 		}
 
@@ -510,11 +510,11 @@ class FileManager extends Control
 	 * @param int $sufix
 	 * @return string
 	 */
-	private function generateName($name, $sufix = NULL)
+	private function generateName($name, $sufix = null)
 	{
 		$fileName = $name . $sufix;
 		if (file_exists($this->getFullPath($fileName))) {
-			return $this->generateName($name, $sufix === NULL ? 1 : ++$sufix);
+			return $this->generateName($name, $sufix === null ? 1 : ++$sufix);
 		}
 		return $fileName;
 	}

@@ -26,13 +26,13 @@ class Translator implements \Nette\Localization\ITranslator
 
 	private function getTranslations()
 	{
-		if ($this->translations === NULL) {
+		if ($this->translations === null) {
 			$this->setLang('en');
 		}
 		return $this->translations;
 	}
 
-	public function translate($message, $count = NULL)
+	public function translate($message, $count = null)
 	{
 		$translations = $this->getTranslations();
 		return isset($translations[$message]) ? $translations[$message] : $message;
