@@ -1,13 +1,14 @@
 <?php
 
 namespace NAttreid\Filemanager\Lang;
+use Nette\Localization\ITranslator;
 
 /**
  * Translator
  *
  * @author Attreid <attreid@gmail.com>
  */
-class Translator implements \Nette\Localization\ITranslator
+class Translator implements ITranslator
 {
 
 	private $translations;

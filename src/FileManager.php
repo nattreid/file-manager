@@ -2,6 +2,7 @@
 
 namespace NAttreid\Filemanager;
 
+use InvalidArgumentException;
 use IPub\FlashMessages\FlashNotifier;
 use IPub\FlashMessages\SessionStorage;
 use NAttreid\Form\Form;
@@ -9,9 +10,14 @@ use NAttreid\Utils\File;
 use NAttreid\Utils\TempFile;
 use Nette\Application\Responses\FileResponse;
 use Nette\Application\UI\Control;
+use Nette\Http\Request;
 use Nette\Localization\ITranslator;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Finder;
+use Nette\Utils\Strings;
+use Nextras\Application\UI\SecuredLinksControlTrait;
+use SplFileInfo;
+use stdClass;
 
 /**
  * FileManager
@@ -21,7 +27,7 @@ use Nette\Utils\Finder;
 class FileManager extends Control
 {
 
-	use \Nextras\Application\UI\SecuredLinksControlTrait;
+	use SecuredLinksControlTrait;
 
 	/** @persistent */
 	public $path;
@@ -41,15 +47,19 @@ class FileManager extends Control
 	/** @var ITranslator */
 	private $translator;
 
-	public function __construct($basePath, SessionStorage $sessionStorage)
+	/** @var Request */
+	private $request;
+
+	public function __construct($basePath, SessionStorage $sessionStorage, Request $request)
 	{
 		parent::__construct();
 		$this->flashNotifier = new FlashNotifier($sessionStorage);
-		if (!\Nette\Utils\Strings::endsWith($basePath, DIRECTORY_SEPARATOR)) {
+		if (!Strings::endsWith($basePath, DIRECTORY_SEPARATOR)) {
 			$basePath .= DIRECTORY_SEPARATOR;
 		}
 		$this->basePath = $basePath;
 		$this->translator = new Lang\Translator;
+		$this->request = $request;
 	}
 
 	/**
@@ -86,7 +96,7 @@ class FileManager extends Control
 	public function handleOpen($fileName)
 	{
 		if (strpos($fileName, '..' . DIRECTORY_SEPARATOR) !== false) {
-			throw new \InvalidArgumentException;
+			throw new InvalidArgumentException;
 		}
 		$file = $this->getFileInfo($fileName);
 		if ($file->isDir) {
@@ -117,12 +127,12 @@ class FileManager extends Control
 	/**
 	 * Zmena adresare
 	 * @param string $dir
-	 * @throws \InvalidArgumentException
+	 * @throws InvalidArgumentException
 	 */
 	public function handleChangeDir($dir = null)
 	{
 		if (strpos($dir, '..' . DIRECTORY_SEPARATOR) !== false || !is_dir($this->getBasePath() . $dir)) {
-			throw new \InvalidArgumentException;
+			throw new InvalidArgumentException;
 		}
 		$this->path = $dir;
 		$this->redrawControl('fileManagerContainer');
@@ -135,11 +145,11 @@ class FileManager extends Control
 	 */
 	public function handleFileSize($fileName)
 	{
-		if ($this->presenter->isAjax()) {
+		if ($this->request->isAjax()) {
 			$this->template->files = [$this->getFileInfo($fileName, true)];
 			$this->redrawControl('itemsContainer');
 		} else {
-			$this->presenter->terminate();
+			exit;
 		}
 	}
 
@@ -173,7 +183,7 @@ class FileManager extends Control
 			$response = new FileResponse($this->getFullPath($file->name), $file->name, $file->type, false);
 			$this->presenter->sendResponse($response);
 		} else {
-			$this->presenter->terminate();
+			exit;
 		}
 	}
 
@@ -184,7 +194,7 @@ class FileManager extends Control
 	 */
 	public function handleDelete($fileName)
 	{
-		if ($this->presenter->isAjax() && $this->editable) {
+		if ($this->request->isAjax() && $this->editable) {
 			$file = $this->getFileInfo($fileName);
 			if ($file->isDir) {
 				File::removeDir($this->getFullPath($file->name));
@@ -193,7 +203,7 @@ class FileManager extends Control
 			}
 			$this->redrawControl('fileManagerContainer');
 		} else {
-			$this->presenter->terminate();
+			exit;
 		}
 	}
 
@@ -204,7 +214,7 @@ class FileManager extends Control
 	 */
 	public function handleEdit($fileName)
 	{
-		if ($this->presenter->isAjax() && $this->editable) {
+		if ($this->request->isAjax() && $this->editable) {
 			$file = $this->getFileInfo($fileName);
 			if ($file->editable) {
 				$this->viewFile($file);
@@ -217,7 +227,7 @@ class FileManager extends Control
 			}
 			$this->redrawControl('fileManagerContainer');
 		} else {
-			$this->presenter->terminate();
+			exit;
 		}
 	}
 
@@ -228,11 +238,11 @@ class FileManager extends Control
 	 */
 	public function handleRename($fileName)
 	{
-		if ($this->presenter->isAjax() && $this->editable) {
+		if ($this->request->isAjax() && $this->editable) {
 			$this->template->files = [$this->rename($fileName)];
 			$this->redrawControl('itemsContainer');
 		} else {
-			$this->presenter->terminate();
+			exit;
 		}
 	}
 
@@ -241,7 +251,7 @@ class FileManager extends Control
 	 */
 	public function handleAddFile()
 	{
-		if ($this->presenter->isAjax() && $this->editable) {
+		if ($this->request->isAjax() && $this->editable) {
 			$files = $this->getFiles();
 			$fileName = $this->generateName('newFile');
 			file_put_contents($this->getFullPath($fileName), null);
@@ -249,7 +259,7 @@ class FileManager extends Control
 			$this->template->files = $files;
 			$this->redrawControl();
 		} else {
-			$this->presenter->terminate();
+			exit;
 		}
 	}
 
@@ -258,7 +268,7 @@ class FileManager extends Control
 	 */
 	public function handleAddDir()
 	{
-		if ($this->presenter->isAjax() && $this->editable) {
+		if ($this->request->isAjax() && $this->editable) {
 			$files = $this->getFiles();
 			$dirName = $this->generateName('newDir');
 			mkdir($this->getFullPath($dirName));
@@ -266,7 +276,7 @@ class FileManager extends Control
 			$this->template->files = $files;
 			$this->redrawControl();
 		} else {
-			$this->presenter->terminate();
+			exit;
 		}
 	}
 
@@ -298,13 +308,13 @@ class FileManager extends Control
 	 */
 	public function editFormSucceeded(Form $form, $values)
 	{
-		if ($this->presenter->isAjax() && $this->editable) {
+		if ($this->request->isAjax() && $this->editable) {
 			file_put_contents($this->getFullPath($values->id), $values->content);
 
 			$this->flashNotifier->success($this->translator->translate('fileManager.dataSaved'));
 			$this->redrawControl('fileManagerContainer');
 		} else {
-			$this->presenter->terminate();
+			exit;
 		}
 	}
 
@@ -334,12 +344,12 @@ class FileManager extends Control
 	 */
 	public function renameFormSucceeded(Form $form, $values)
 	{
-		if ($this->presenter->isAjax() && $this->editable) {
+		if ($this->request->isAjax() && $this->editable) {
 			rename($this->getFullPath($values->id), $this->getFullPath($values->name));
 
 			$this->redrawControl('fileManagerContainer');
 		} else {
-			$this->presenter->terminate();
+			exit;
 		}
 	}
 
@@ -355,7 +365,7 @@ class FileManager extends Control
 		$link = '';
 		if ($this->path !== null) {
 			foreach ($this->getPath() as $dir) {
-				$obj = new \stdClass;
+				$obj = new stdClass;
 				$obj->name = $dir;
 				$obj->link = $link .= (empty($link) ? '' : DIRECTORY_SEPARATOR) . $dir;
 				$this->template->path[] = $obj;
@@ -468,14 +478,14 @@ class FileManager extends Control
 	private function getFileInfo($fileName, $size = false)
 	{
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		$file = $this->createFileInfo(new \SplFileInfo($this->getFullPath($fileName)), $finfo, $size);
+		$file = $this->createFileInfo(new SplFileInfo($this->getFullPath($fileName)), $finfo, $size);
 		finfo_close($finfo);
 		return $file;
 	}
 
 	/**
 	 * Vrati informace o souboru nebo adresariT
-	 * @param \SplFileInfo $file
+	 * @param SplFileInfo $file
 	 * @param mixed $finfo
 	 * @param boolean $size
 	 * @return Finfo
@@ -570,6 +580,9 @@ class Finfo
 interface IFileManagerFactory
 {
 
-	/** @return FileManager */
+	/**
+	 * @param $basePath
+	 * @return FileManager
+	 */
 	public function create($basePath);
 }

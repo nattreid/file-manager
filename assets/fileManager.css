@@ -2,18 +2,18 @@
 .fileManagerContainer .viewer {
   display: none;
   position: fixed;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 999999999;
 }
 .fileManagerContainer .viewer .background {
   position: fixed;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: #000;
   opacity: 0.6;
   z-index: -200;
@@ -89,7 +89,7 @@
   text-align: left;
 }
 .fileManagerContainer .viewer .viewer-container.data .properties input[type='checkbox'] {
-  margin: -2px 0px 0px 10px;
+  margin: -2px 0 0 10px;
 }
 .fileManagerContainer .viewer .viewer-container.data .buttons {
   text-align: right;
@@ -132,7 +132,7 @@
   display: none;
   position: absolute;
   padding: 12px;
-  margin: 20px 0px 0px 20px;
+  margin: 20px 0 0 20px;
   background-color: #000;
   opacity: .8;
   color: #fff;
@@ -146,7 +146,7 @@
 .fileManagerContainer .fileManagerContent .itemContainer .fileContextMenu {
   display: none;
   padding: 30px;
-  margin: 0px;
+  margin: 0;
 }
 .fileManagerContainer .fileManagerContent .itemContainer .fileContextMenu ul {
   min-width: 120px;
@@ -229,7 +229,7 @@
 }
 .fileManagerContainer .fileManagerContent .itemContainer a.item .image {
   margin: 0 auto;
-  background-image: url('/images/fileManager/icons.png');
+  background-image: url('/images/icons.png');
   background-size: 500px;
   background-repeat: no-repeat;
   background-position: -150px -250px;
@@ -253,10 +253,10 @@
   background-position: 0;
 }
 .fileManagerContainer .fileManagerContent .itemContainer a.application-xml .image {
-  background-position: 0px -200px;
+  background-position: 0 -200px;
 }
 .fileManagerContainer .fileManagerContent .itemContainer a.text-x-php .image {
-  background-position: 0px -450px;
+  background-position: 0 -450px;
 }
 .fileManagerContainer .fileManagerContent .itemContainer a.text-html .image {
   background-position: -200px -400px;
@@ -271,5 +271,5 @@
   background-position: -300px -300px;
 }
 .fileManagerContainer .fileManagerContent .itemContainer a.image-gif .image {
-  background-position: 0px -300px;
+  background-position: 0 -300px;
 }
