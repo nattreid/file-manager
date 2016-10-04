@@ -66,18 +66,12 @@
   -webkit-border-radius: 4px;
   border-radius: 4px;
   white-space: pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
   word-wrap: break-word;
   word-break: break-all;
 }
 .fileManagerContainer .viewer .viewer-container.data pre.notAlign,
 .fileManagerContainer .viewer .viewer-container.data textarea.notAlign {
   white-space: pre;
-  white-space: -moz-pre;
-  white-space: -pre;
-  white-space: -o-pre;
   word-wrap: initial;
   word-break: initial;
 }
@@ -253,10 +247,10 @@
   background-position: 0;
 }
 .fileManagerContainer .fileManagerContent .itemContainer a.application-xml .image {
-  background-position: 0 -200px;
+  background-position: 0px -200px;
 }
 .fileManagerContainer .fileManagerContent .itemContainer a.text-x-php .image {
-  background-position: 0 -450px;
+  background-position: 0px -450px;
 }
 .fileManagerContainer .fileManagerContent .itemContainer a.text-html .image {
   background-position: -200px -400px;
@@ -271,5 +265,5 @@
   background-position: -300px -300px;
 }
 .fileManagerContainer .fileManagerContent .itemContainer a.image-gif .image {
-  background-position: 0 -300px;
+  background-position: 0px -300px;
 }
