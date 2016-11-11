@@ -23,7 +23,7 @@
     "font-awesome": "~4.6",
     "history.nette.ajax.js": "~2.0",
     "nette.ajax.js": "~2.1",
-    "utils": "git@git.newtravel.cz:nattreid/utils.git#~1.0"
+    "utils": "git@git.newtravel.cz:nattreid/utils.git#latest"
   },
   "resolutions": {
     "nette.ajax.js": "~2.1"
