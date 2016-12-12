@@ -15,19 +15,13 @@ var paths = {
 };
 
 gulp.task('js', function () {
-    return gulp.src([
-        paths.dev.js + 'fileManager.js',
-        paths.dev.js + 'modernizr-touch.js'
-    ])
+    return gulp.src(paths.dev.js + '*.js')
         .pipe(concat('fileManager.js'))
         .pipe(gulp.dest(paths.production));
 });
 
 gulp.task('jsMin', function () {
-    return gulp.src([
-        paths.dev.js + 'fileManager.js',
-        paths.dev.js + 'modernizr-touch.js'
-    ])
+    return gulp.src(paths.dev.js + '*.js')
         .pipe(concat('fileManager.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(paths.production));
