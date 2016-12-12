@@ -2,8 +2,7 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     minify = require('gulp-clean-css'),
     uglify = require('gulp-uglify'),
-    concat = require('gulp-concat'),
-    rename = require('gulp-rename');
+    concat = require('gulp-concat');
 
 var paths = {
     'dev': {
@@ -29,13 +28,14 @@ gulp.task('jsMin', function () {
 
 gulp.task('css', function () {
     return gulp.src(paths.dev.less + '*.less')
+        .pipe(concat('fileManager.css'))
         .pipe(less())
         .pipe(gulp.dest(paths.production));
 });
 
 gulp.task('cssMin', function () {
     return gulp.src(paths.dev.less + '*.less')
-        .pipe(rename({suffix: '.min'}))
+        .pipe(concat('fileManager.min.css'))
         .pipe(less())
         .pipe(minify({keepSpecialComments: 0}))
         .pipe(gulp.dest(paths.production));
