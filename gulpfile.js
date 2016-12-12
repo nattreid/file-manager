@@ -28,13 +28,13 @@ gulp.task('jsMin', function () {
 });
 
 gulp.task('css', function () {
-    return gulp.src(paths.dev.less + 'fileManager.less')
+    return gulp.src(paths.dev.less + '*.less')
         .pipe(less())
         .pipe(gulp.dest(paths.production));
 });
 
 gulp.task('cssMin', function () {
-    return gulp.src(paths.dev.less + 'fileManager.less')
+    return gulp.src(paths.dev.less + '*.less')
         .pipe(rename({suffix: '.min'}))
         .pipe(less())
         .pipe(minify({keepSpecialComments: 0}))
