@@ -94,9 +94,9 @@ class FileInfo
 	}
 
 	/**
-	 * @return float
+	 * @return float|null
 	 */
-	protected function getSize(): float
+	protected function getSize()
 	{
 		return $this->size;
 	}
