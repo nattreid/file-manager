@@ -132,8 +132,13 @@ class FileManager extends Control
 	 */
 	public function handleChangeDir(string $dir = null)
 	{
-		if (strpos($dir, '..' . DIRECTORY_SEPARATOR) !== false || !is_dir($this->getBasePath() . $dir)) {
-			throw new InvalidArgumentException;
+		if ($dir !== null) {
+			if (
+				strpos($dir, '..' . DIRECTORY_SEPARATOR) !== false
+				|| !is_dir($this->getBasePath() . $dir)
+			) {
+				throw new InvalidArgumentException;
+			}
 		}
 		$this->path = $dir;
 		$this->redrawControl('fileManagerContainer');
@@ -400,9 +405,9 @@ class FileManager extends Control
 
 	/**
 	 * Vrati pole cesty
-	 * @return string[]
+	 * @return string[]|null
 	 */
-	private function getPath(): array
+	private function getPath()
 	{
 		if ($this->path) {
 			return explode(DIRECTORY_SEPARATOR, $this->path);
