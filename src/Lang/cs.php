@@ -12,7 +12,7 @@ return [
 	'fileManager.type' => 'Typ',
 	'fileManager.dataSaved' => 'Data uložena',
 	'fileManager.size' => 'Velikost',
-	'fileManager.change' => 'Změněno',
+	'fileManager.changed' => 'Změněno',
 	'fileManager.align' => 'Zarovnávat',
 	'fileManager.confirmDelete' => 'Opravdu chcete smazat',
 	'fileManager.addFile' => 'Přidat soubor',

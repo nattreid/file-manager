@@ -12,7 +12,7 @@ return [
 	'fileManager.type' => 'Type',
 	'fileManager.dataSaved' => 'Data saved',
 	'fileManager.size' => 'Size',
-	'fileManager.change' => 'Changed',
+	'fileManager.changed' => 'Changed',
 	'fileManager.align' => 'Align',
 	'fileManager.confirmDelete' => 'Do you really want to delete',
 	'fileManager.addFile' => 'Add file',

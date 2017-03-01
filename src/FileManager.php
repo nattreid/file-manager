@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace NAttreid\Filemanager;
 
-use InvalidArgumentException;
 use IPub\FlashMessages\FlashNotifier;
 use IPub\FlashMessages\SessionStorage;
+use NAttreid\Filemanager\Lang\Translator;
 use NAttreid\Form\Form;
 use NAttreid\Utils\File;
 use NAttreid\Utils\TempFile;
 use Nette\Application\Responses\FileResponse;
 use Nette\Application\UI\Control;
 use Nette\Http\Request;
+use Nette\InvalidArgumentException;
 use Nette\Localization\ITranslator;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Finder;
@@ -29,7 +32,10 @@ class FileManager extends Control
 
 	use SecuredLinksControlTrait;
 
-	/** @persistent */
+	/**
+	 * @var string
+	 * @persistent
+	 */
 	public $path;
 
 	/**
@@ -38,7 +44,7 @@ class FileManager extends Control
 	 */
 	private $basePath;
 
-	/** @var boolean */
+	/** @var bool */
 	private $editable = false;
 
 	/** @var FlashNotifier */
@@ -50,7 +56,7 @@ class FileManager extends Control
 	/** @var Request */
 	private $request;
 
-	public function __construct($basePath, SessionStorage $sessionStorage, Request $request)
+	public function __construct(string $basePath, SessionStorage $sessionStorage, Request $request)
 	{
 		parent::__construct();
 		$this->flashNotifier = new FlashNotifier($sessionStorage);
@@ -73,18 +79,18 @@ class FileManager extends Control
 
 	/**
 	 * Vrati Translator
-	 * @return Lang\Translator
+	 * @return Translator
 	 */
-	public function getTranslator()
+	public function getTranslator(): Translator
 	{
 		return $this->translator;
 	}
 
 	/**
 	 * Nastavi prava pro editaci
-	 * @param boolean $editable
+	 * @param bool $editable
 	 */
-	public function editable($editable = true)
+	public function editable(bool $editable = true)
 	{
 		$this->editable = $editable;
 	}
@@ -93,7 +99,7 @@ class FileManager extends Control
 	 * Otevreni souboru nebo adresare
 	 * @param string $fileName
 	 */
-	public function handleOpen($fileName)
+	public function handleOpen(string $fileName)
 	{
 		if (strpos($fileName, '..' . DIRECTORY_SEPARATOR) !== false) {
 			throw new InvalidArgumentException;
@@ -112,15 +118,10 @@ class FileManager extends Control
 
 	/**
 	 * Zobrazeni souboru do okna
-	 * @param Finfo $file
+	 * @param FileInfo $file
 	 */
-	private function viewFile($file)
+	private function viewFile(FileInfo $file)
 	{
-		if (strpos($file->type, 'image') !== false) {
-			$file->type = 'image';
-		} else {
-			$file->content = @file_get_contents($this->getFullPath($file->name));
-		}
 		$this->template->viewFile = $file;
 	}
 
@@ -129,7 +130,7 @@ class FileManager extends Control
 	 * @param string $dir
 	 * @throws InvalidArgumentException
 	 */
-	public function handleChangeDir($dir = null)
+	public function handleChangeDir(string $dir = null)
 	{
 		if (strpos($dir, '..' . DIRECTORY_SEPARATOR) !== false || !is_dir($this->getBasePath() . $dir)) {
 			throw new InvalidArgumentException;
@@ -143,7 +144,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleFileSize($fileName)
+	public function handleFileSize(string $fileName)
 	{
 		if ($this->request->isAjax()) {
 			$this->template->files = [$this->getFileInfo($fileName, true)];
@@ -158,7 +159,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleDownload($fileName)
+	public function handleDownload(string $fileName)
 	{
 		$file = $this->getFileInfo($fileName);
 		if ($file->isDir) {
@@ -176,7 +177,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleFile($fileName)
+	public function handleFile(string $fileName)
 	{
 		$file = $this->getFileInfo($fileName);
 		if (strpos($file->type, 'image') !== false) {
@@ -192,7 +193,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleDelete($fileName)
+	public function handleDelete(string $fileName)
 	{
 		if ($this->request->isAjax() && $this->editable) {
 			$file = $this->getFileInfo($fileName);
@@ -212,7 +213,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleEdit($fileName)
+	public function handleEdit(string $fileName)
 	{
 		if ($this->request->isAjax() && $this->editable) {
 			$file = $this->getFileInfo($fileName);
@@ -236,7 +237,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleRename($fileName)
+	public function handleRename(string $fileName)
 	{
 		if ($this->request->isAjax() && $this->editable) {
 			$this->template->files = [$this->rename($fileName)];
@@ -284,7 +285,7 @@ class FileManager extends Control
 	 * Formular editace
 	 * @return Form
 	 */
-	protected function createComponentEditForm()
+	protected function createComponentEditForm(): Form
 	{
 		$form = new Form;
 		$form->setAjaxRequest();
@@ -306,7 +307,7 @@ class FileManager extends Control
 	 * @param Form $form
 	 * @param ArrayHash $values
 	 */
-	public function editFormSucceeded(Form $form, $values)
+	public function editFormSucceeded(Form $form, ArrayHash $values)
 	{
 		if ($this->request->isAjax() && $this->editable) {
 			file_put_contents($this->getFullPath($values->id), $values->content);
@@ -322,7 +323,7 @@ class FileManager extends Control
 	 * Formular prejmenovani
 	 * @return Form
 	 */
-	protected function createComponentRenameForm()
+	protected function createComponentRenameForm(): Form
 	{
 		$form = new Form;
 		$form->setAjaxRequest();
@@ -342,7 +343,7 @@ class FileManager extends Control
 	 * @param Form $form
 	 * @param ArrayHash $values
 	 */
-	public function renameFormSucceeded(Form $form, $values)
+	public function renameFormSucceeded(Form $form, ArrayHash $values)
 	{
 		if ($this->request->isAjax() && $this->editable) {
 			rename($this->getFullPath($values->id), $this->getFullPath($values->name));
@@ -382,9 +383,9 @@ class FileManager extends Control
 	/**
 	 * Nastavi prejmenovani
 	 * @param string $fileName
-	 * @return Finfo
+	 * @return FileInfo
 	 */
-	private function rename($fileName)
+	private function rename(string $fileName): FileInfo
 	{
 		$file = $this->getFileInfo($fileName);
 		$file->rename = true;
@@ -399,9 +400,9 @@ class FileManager extends Control
 
 	/**
 	 * Vrati pole cesty
-	 * @return array
+	 * @return string[]
 	 */
-	private function getPath()
+	private function getPath(): array
 	{
 		if ($this->path) {
 			return explode(DIRECTORY_SEPARATOR, $this->path);
@@ -412,12 +413,12 @@ class FileManager extends Control
 	/**
 	 * Vrati Korenovy adresar
 	 * @return string
-	 * @throws \Nette\InvalidArgumentException
+	 * @throws InvalidArgumentException
 	 */
 	private function getBasePath()
 	{
 		if ($this->basePath === null) {
-			throw new \Nette\InvalidArgumentException('Method setBasePath($path) does not call');
+			throw new InvalidArgumentException('Method setBasePath($path) does not call');
 		}
 		return $this->basePath;
 	}
@@ -436,25 +437,23 @@ class FileManager extends Control
 	 * @param string $file
 	 * @return string
 	 */
-	private function getFullPath($file = null)
+	private function getFullPath(string $file = null): string
 	{
 		return $this->getBasePath() . $this->path . ($file !== null ? DIRECTORY_SEPARATOR . $file : '');
 	}
 
 	/**
 	 * Vrati polozky v adresari
-	 * @return array
+	 * @return FileInfo[]
 	 */
-	private function getFiles()
+	private function getFiles(): array
 	{
 		$result = [];
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		$files = Finder::find('*')
 			->in($this->getFullPath());
 		foreach ($files as $file) {
-			$result[] = $this->createFileInfo($file, $finfo);
+			$result[] = new FileInfo($file);
 		}
-		finfo_close($finfo);
 		usort($result, function ($a, $b) {
 			if ($a->isDir == $b->isDir) {
 				return strcmp($a->name, $b->name);
@@ -472,46 +471,13 @@ class FileManager extends Control
 	/**
 	 * Vrati informace o souboru nebo adresari
 	 * @param string $fileName
-	 * @param boolean $size
-	 * @return Finfo
+	 * @param bool $withSize
+	 * @return FileInfo
 	 */
-	private function getFileInfo($fileName, $size = false)
+	private function getFileInfo(string $fileName, bool $withSize = false): FileInfo
 	{
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		$file = $this->createFileInfo(new SplFileInfo($this->getFullPath($fileName)), $finfo, $size);
-		finfo_close($finfo);
-		return $file;
-	}
-
-	/**
-	 * Vrati informace o souboru nebo adresariT
-	 * @param SplFileInfo $file
-	 * @param mixed $finfo
-	 * @param boolean $size
-	 * @return Finfo
-	 */
-	private function createFileInfo($file, $finfo, $size = false)
-	{
-		$obj = new Finfo;
-		$obj->name = $file->getFilename();
-		$obj->type = finfo_file($finfo, $file->getPathname());
-		$obj->size = $size ? File::size($file->getPathname()) : null;
-		$obj->change = filemtime($file->getPathname());
-		$obj->isDir = $file->isDir();
-		$obj->rename = false;
-		switch ($obj->type) {
-			default:
-				$obj->editable = false;
-				break;
-			case 'text/plain':
-			case 'application/xml':
-			case 'text/x-php':
-			case 'text/html':
-				$obj->editable = true;
-				break;
-		}
-
-		return $obj;
+		$file = new SplFileInfo($this->getFullPath($fileName));
+		return new FileInfo($file, $withSize);
 	}
 
 	/**
@@ -520,7 +486,7 @@ class FileManager extends Control
 	 * @param int $sufix
 	 * @return string
 	 */
-	private function generateName($name, $sufix = null)
+	private function generateName(string $name, int $sufix = null)
 	{
 		$fileName = $name . $sufix;
 		if (file_exists($this->getFullPath($fileName))) {
@@ -528,61 +494,14 @@ class FileManager extends Control
 		}
 		return $fileName;
 	}
-
-}
-
-class Finfo
-{
-
-	/**
-	 * Nazev
-	 * @var string
-	 */
-	public $name;
-
-	/**
-	 * Typ
-	 * @var string
-	 */
-	public $type;
-
-	/**
-	 * Velikost
-	 * @var float
-	 */
-	public $size;
-
-	/**
-	 * Je adresar
-	 * @var boolean
-	 */
-	public $isDir;
-
-	/**
-	 * Je mozne soubor editovat
-	 * @var boolean
-	 */
-	public $editable;
-
-	/**
-	 * Ma se zapnout prejmenovani
-	 * @var boolean
-	 */
-	public $rename;
-	/**
-	 * Obsah
-	 * @var string
-	 */
-	public $content;
-
 }
 
 interface IFileManagerFactory
 {
 
 	/**
-	 * @param $basePath
+	 * @param string $basePath
 	 * @return FileManager
 	 */
-	public function create($basePath);
+	public function create(string $basePath): FileManager;
 }

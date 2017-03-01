@@ -13,8 +13,8 @@
             <th>{if $file->size === null}{_'fileManager.loading'}{else}{$file->size|size}{/if}</th>
         </tr>
         <tr>
-            <td>{_'fileManager.change'}</td>
-            <th>{$file->change|localeDateTime}</th>
+            <td>{_'fileManager.changed'}</td>
+            <th>{$file->changed|localeDateTime}</th>
         </tr>
     </table>
 </div>

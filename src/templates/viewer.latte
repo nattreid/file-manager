@@ -1,8 +1,8 @@
 <div class="viewer">
     <div class="background"></div>
-    <div n:class="viewer-container, $viewFile->type == 'image' ? image : data">
+    <div n:class="viewer-container, $viewFile->isImage ? image : data">
         <a class="viewerClose fa fa-remove"></a>
-        {if $viewFile->type == 'image'}
+        {if $viewFile->isImage}
             <img src="{link file! $viewFile->name}"/>
         {else}
         {$viewFile->name}
