@@ -376,7 +376,7 @@ class FileManager extends Control
 		$this->template->componentId = $this->getUniqueId();
 		$this->template->editable = $this->editable;
 
-		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'fileManager.latte');
+		$this->template->setFile(__DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'fileManager.latte');
 		$this->template->render();
 	}
 
