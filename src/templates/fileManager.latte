@@ -20,7 +20,7 @@
                         <span class="image"></span>
                         {if $file->rename}
                             {form renameForm}
-                                {input name}
+                                {input name, class => form-control}
                             {/form}
                         {else}
                             <span class="text">{$file->name}</span>

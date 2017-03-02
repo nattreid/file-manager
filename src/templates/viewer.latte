@@ -9,11 +9,11 @@
             <span class="properties">{_'fileManager.align'}<input type="checkbox" checked="checked"/></span>
             {if $edit}
                 {form editForm}
-                    {input content, class => niceScroll}
-                    <div class="buttons">{input save}</div>
+                    {input content, class => form-control}
+                    <div class="buttons">{input save, class => 'btn btn-primary button'}</div>
                 {/form}
             {else}
-                <pre n:class="!$user->isMobile() ? niceScroll">{$viewFile->content}</pre>
+                <pre>{$viewFile->content}</pre>
             {/if}
         {/if}
     </div>
