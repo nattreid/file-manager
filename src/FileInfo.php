@@ -72,6 +72,7 @@ class FileInfo
 			case 'application/xml':
 			case 'text/x-php':
 			case 'text/html':
+			case 'inode-x-empty':
 				$this->editable = true;
 				break;
 		}
