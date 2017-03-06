@@ -5,14 +5,12 @@ declare(strict_types = 1);
 namespace NAttreid\Filemanager;
 
 use IPub\FlashMessages\FlashNotifier;
-use IPub\FlashMessages\SessionStorage;
 use NAttreid\Filemanager\Lang\Translator;
 use NAttreid\Form\Form;
 use NAttreid\Utils\File;
 use NAttreid\Utils\TempFile;
 use Nette\Application\Responses\FileResponse;
 use Nette\Application\UI\Control;
-use Nette\Http\Request;
 use Nette\InvalidArgumentException;
 use Nette\Localization\ITranslator;
 use Nette\Utils\ArrayHash;
@@ -53,19 +51,15 @@ class FileManager extends Control
 	/** @var ITranslator */
 	private $translator;
 
-	/** @var Request */
-	private $request;
-
-	public function __construct(string $basePath, SessionStorage $sessionStorage, Request $request)
+	public function __construct(string $basePath, FlashNotifier $flashNotifier)
 	{
 		parent::__construct();
-		$this->flashNotifier = new FlashNotifier($sessionStorage);
+		$this->flashNotifier = $flashNotifier;
 		if (!Strings::endsWith($basePath, DIRECTORY_SEPARATOR)) {
 			$basePath .= DIRECTORY_SEPARATOR;
 		}
 		$this->basePath = $basePath;
 		$this->translator = new Lang\Translator;
-		$this->request = $request;
 	}
 
 	/**
@@ -151,7 +145,7 @@ class FileManager extends Control
 	 */
 	public function handleFileSize(string $fileName)
 	{
-		if ($this->request->isAjax()) {
+		if ($this->presenter->isAjax()) {
 			$this->template->files = [$this->getFileInfo($fileName, true)];
 			$this->redrawControl('itemsContainer');
 		} else {
@@ -169,7 +163,7 @@ class FileManager extends Control
 		$file = $this->getFileInfo($fileName);
 		if ($file->isDir) {
 			$archive = new TempFile;
-			File::zip($this->getFullPath($file->name), $archive);
+			File::zip($this->getFullPath($file->name), (string)$archive);
 			$response = new FileResponse($archive, $file->name . '.zip');
 		} else {
 			$response = new FileResponse($this->getFullPath($file->name));
@@ -200,7 +194,7 @@ class FileManager extends Control
 	 */
 	public function handleDelete(string $fileName)
 	{
-		if ($this->request->isAjax() && $this->editable) {
+		if ($this->presenter->isAjax() && $this->editable) {
 			$file = $this->getFileInfo($fileName);
 			if ($file->isDir) {
 				File::removeDir($this->getFullPath($file->name));
@@ -220,7 +214,7 @@ class FileManager extends Control
 	 */
 	public function handleEdit(string $fileName)
 	{
-		if ($this->request->isAjax() && $this->editable) {
+		if ($this->presenter->isAjax() && $this->editable) {
 			$file = $this->getFileInfo($fileName);
 			if ($file->editable) {
 				$this->viewFile($file);
@@ -244,7 +238,7 @@ class FileManager extends Control
 	 */
 	public function handleRename(string $fileName)
 	{
-		if ($this->request->isAjax() && $this->editable) {
+		if ($this->presenter->isAjax() && $this->editable) {
 			$this->template->files = [$this->rename($fileName)];
 			$this->redrawControl('itemsContainer');
 		} else {
@@ -257,7 +251,7 @@ class FileManager extends Control
 	 */
 	public function handleAddFile()
 	{
-		if ($this->request->isAjax() && $this->editable) {
+		if ($this->presenter->isAjax() && $this->editable) {
 			$files = $this->getFiles();
 			$fileName = $this->generateName('newFile');
 			file_put_contents($this->getFullPath($fileName), null);
@@ -274,7 +268,7 @@ class FileManager extends Control
 	 */
 	public function handleAddDir()
 	{
-		if ($this->request->isAjax() && $this->editable) {
+		if ($this->presenter->isAjax() && $this->editable) {
 			$files = $this->getFiles();
 			$dirName = $this->generateName('newDir');
 			mkdir($this->getFullPath($dirName));
@@ -314,7 +308,7 @@ class FileManager extends Control
 	 */
 	public function editFormSucceeded(Form $form, ArrayHash $values)
 	{
-		if ($this->request->isAjax() && $this->editable) {
+		if ($this->presenter->isAjax() && $this->editable) {
 			file_put_contents($this->getFullPath($values->id), $values->content);
 
 			$this->flashNotifier->success($this->translator->translate('fileManager.dataSaved'));
@@ -350,7 +344,7 @@ class FileManager extends Control
 	 */
 	public function renameFormSucceeded(Form $form, ArrayHash $values)
 	{
-		if ($this->request->isAjax() && $this->editable) {
+		if ($this->presenter->isAjax() && $this->editable) {
 			rename($this->getFullPath($values->id), $this->getFullPath($values->name));
 
 			$this->redrawControl('fileManagerContainer');
