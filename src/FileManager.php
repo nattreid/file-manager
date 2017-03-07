@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace NAttreid\Filemanager;
 
 use IPub\FlashMessages\FlashNotifier;
+use IPub\FlashMessages\Storage\IStorage;
 use NAttreid\Filemanager\Lang\Translator;
 use NAttreid\Form\Form;
 use NAttreid\Utils\File;
@@ -51,10 +52,10 @@ class FileManager extends Control
 	/** @var ITranslator */
 	private $translator;
 
-	public function __construct(string $basePath, FlashNotifier $flashNotifier)
+	public function __construct(string $basePath, IStorage $storage)
 	{
 		parent::__construct();
-		$this->flashNotifier = $flashNotifier;
+		$this->flashNotifier = new FlashNotifier(false, $storage);
 		if (!Strings::endsWith($basePath, DIRECTORY_SEPARATOR)) {
 			$basePath .= DIRECTORY_SEPARATOR;
 		}
