@@ -1,8 +1,8 @@
 {
-  "name": "filemanager",
+  "name": "nattreid-file-manager",
   "description": "File Manager for Nette Framework",
   "license": [
-    "Unlicense"
+    "MIT"
   ],
   "authors": [
     {
@@ -23,7 +23,7 @@
     "font-awesome": "~4.6",
     "history.nette.ajax.js": "~2.0",
     "nette.ajax.js": "~2.1",
-    "utils": "git@git.newtravel.cz:nattreid/utils.git#latest"
+    "nattreid-utils": "~1.0"
   },
   "resolutions": {
     "nette.ajax.js": "~2.1"

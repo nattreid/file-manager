@@ -15,7 +15,7 @@ Pokud používáte bower, upravte css
 
 Použití v presenteru
 ```php
-/** @var \NAttreid\Filemanager\IFileManagerFactory @inject */
+/** @var \NAttreid\FileManager\IFileManagerFactory @inject */
 public $fileManagerFactory;
 
 function createComponentList(){

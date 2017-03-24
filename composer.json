@@ -1,20 +1,14 @@
 {
-  "name": "nattreid/filemanager",
+  "name": "nattreid/file-manager",
   "description": "File Manager for Nette Framework",
   "type": "library",
   "license": [
-    "Unlicense"
+    "MIT"
   ],
   "authors": [
     {
       "name": "Attreid",
       "email": "attreid@gmail.com"
-    }
-  ],
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packages.newtravel.cz"
     }
   ],
   "require": {

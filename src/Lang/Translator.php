@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace NAttreid\Filemanager\Lang;
+namespace NAttreid\FileManager\Lang;
 
 use InvalidArgumentException;
 use Nette\Localization\ITranslator;

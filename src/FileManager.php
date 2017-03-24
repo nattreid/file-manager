@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-namespace NAttreid\Filemanager;
+namespace NAttreid\FileManager;
 
 use IPub\FlashMessages\FlashNotifier;
 use IPub\FlashMessages\Storage\IStorage;
-use NAttreid\Filemanager\Lang\Translator;
+use NAttreid\FileManager\Lang\Translator;
 use NAttreid\Form\Form;
 use NAttreid\Utils\File;
 use NAttreid\Utils\TempFile;
@@ -164,7 +164,7 @@ class FileManager extends Control
 		$file = $this->getFileInfo($fileName);
 		if ($file->isDir) {
 			$archive = new TempFile;
-			File::zip($this->getFullPath($file->name), (string)$archive);
+			File::zip($this->getFullPath($file->name), (string) $archive);
 			$response = new FileResponse($archive, $file->name . '.zip');
 		} else {
 			$response = new FileResponse($this->getFullPath($file->name));

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace NAttreid\Filemanager;
+namespace NAttreid\FileManager;
 
 use NAttreid\Utils\File;
 use Nette\SmartObject;

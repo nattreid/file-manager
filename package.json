@@ -1,13 +1,13 @@
 {
-  "name": "filemanager",
+  "name": "nattreid-file-manager",
   "description": "File Manager for Nette Framework",
   "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "git@git.newtravel.cz:nattreid/filemanager.git"
+    "url": "git@github.com:nattreid/file-manager.git"
   },
   "author": "Attreid",
-  "license": "Unlicense",
+  "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.12",
