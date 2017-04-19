@@ -11,26 +11,24 @@
             <a class="fa fa-folder ajax" data-ajax-off="history" n:href="addDir!" title="{_'fileManager.addDir'}"></a>
         </span>
     </div>
-    <div class="fileManagerContent">
-        {snippet itemsContainer}
-            <div class="itemContainer" n:foreach="$files as $file" data-request="0"
-                 data-file-size-handler="{link fileSize!, $file->name}">
-                {snippet itemContainer-$file->name}
-                    <a n:class="item, \Nette\Utils\Strings::webalize($file->type), !$file->rename ? ajax"{if !$file->rename} href="{link open $file->name}"{/if}>
-                        <span class="image"></span>
-                        {if $file->rename}
-                            {form renameForm}
-                                {input name, class => form-control}
-                            {/form}
-                        {else}
-                            <span class="text">{$file->name}</span>
-                        {/if}
-                    </a>
-                    {include 'fileContextMenu.latte', file => $file}
-                    {include 'properties.latte', file => $file}
-                {/snippet}
-            </div>
-        {/snippet}
+    <div class="fileManagerContent" n:snippet="itemsContainer">
+        <div class="itemContainer" n:foreach="$files as $file" data-request="0"
+             data-file-size-handler="{link fileSize!, $file->name}">
+            {snippet itemContainer-$file->name}
+                <a n:class="item, \Nette\Utils\Strings::webalize($file->type), !$file->rename ? ajax"{if !$file->rename} href="{link open $file->name}"{/if}>
+                    <span class="image"></span>
+                    {if $file->rename}
+                        {form renameForm}
+                            {input name, class => form-control}
+                        {/form}
+                    {else}
+                        <span class="text">{$file->name}</span>
+                    {/if}
+                </a>
+                {include 'fileContextMenu.latte', file => $file}
+                {include 'properties.latte', file => $file}
+            {/snippet}
+        </div>
     </div>
     {snippet viewer}
         {ifset $viewFile}

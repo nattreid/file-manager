@@ -107,7 +107,7 @@
                     if (item.data('request') === 0) {
                         item.data('request', 1);
                         ajax = $.nette.ajax(item.data('file-size-handler'))
-                            .success(function () {
+                            .done(function () {
                                 item.find('.properties')
                                     .show()
                                     .css({
@@ -116,7 +116,7 @@
                                     });
                                 item.data('request', 2);
                             })
-                            .complete(function () {
+                            .always(function () {
                                 if (item.data('request') !== 2) {
                                     item.data('request', 0);
                                 }
