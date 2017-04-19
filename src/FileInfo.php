@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\FileManager;
 
@@ -97,7 +97,7 @@ class FileInfo
 	/**
 	 * @return float|null
 	 */
-	protected function getSize()
+	protected function getSize(): ?float
 	{
 		return $this->size;
 	}
@@ -129,7 +129,7 @@ class FileInfo
 	/**
 	 * @param bool $rename
 	 */
-	protected function setRename(bool $rename)
+	protected function setRename(bool $rename): void
 	{
 		$this->rename = $rename;
 	}

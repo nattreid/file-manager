@@ -67,7 +67,7 @@ class FileManager extends Control
 	 * Nastavi translator
 	 * @param ITranslator $translator
 	 */
-	public function setTranslator(ITranslator $translator)
+	public function setTranslator(ITranslator $translator): void
 	{
 		$this->translator = $translator;
 	}
@@ -85,7 +85,7 @@ class FileManager extends Control
 	 * Nastavi prava pro editaci
 	 * @param bool $editable
 	 */
-	public function editable(bool $editable = true)
+	public function editable(bool $editable = true): void
 	{
 		$this->editable = $editable;
 	}
@@ -94,7 +94,7 @@ class FileManager extends Control
 	 * Otevreni souboru nebo adresare
 	 * @param string $fileName
 	 */
-	public function handleOpen(string $fileName)
+	public function handleOpen(string $fileName): void
 	{
 		if (strpos($fileName, '..' . DIRECTORY_SEPARATOR) !== false) {
 			throw new InvalidArgumentException;
@@ -115,7 +115,7 @@ class FileManager extends Control
 	 * Zobrazeni souboru do okna
 	 * @param FileInfo $file
 	 */
-	private function viewFile(FileInfo $file)
+	private function viewFile(FileInfo $file): void
 	{
 		$this->template->viewFile = $file;
 	}
@@ -125,7 +125,7 @@ class FileManager extends Control
 	 * @param string $dir
 	 * @throws InvalidArgumentException
 	 */
-	public function handleChangeDir(string $dir = null)
+	public function handleChangeDir(string $dir = null): void
 	{
 		if ($dir !== null) {
 			if (
@@ -144,7 +144,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleFileSize(string $fileName)
+	public function handleFileSize(string $fileName): void
 	{
 		if ($this->presenter->isAjax()) {
 			$this->template->files = [$this->getFileInfo($fileName, true)];
@@ -159,7 +159,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleDownload(string $fileName)
+	public function handleDownload(string $fileName): void
 	{
 		$file = $this->getFileInfo($fileName);
 		if ($file->isDir) {
@@ -177,7 +177,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleFile(string $fileName)
+	public function handleFile(string $fileName): void
 	{
 		$file = $this->getFileInfo($fileName);
 		if (strpos($file->type, 'image') !== false) {
@@ -193,7 +193,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleDelete(string $fileName)
+	public function handleDelete(string $fileName): void
 	{
 		if ($this->presenter->isAjax() && $this->editable) {
 			$file = $this->getFileInfo($fileName);
@@ -213,7 +213,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleEdit(string $fileName)
+	public function handleEdit(string $fileName): void
 	{
 		if ($this->presenter->isAjax() && $this->editable) {
 			$file = $this->getFileInfo($fileName);
@@ -237,7 +237,7 @@ class FileManager extends Control
 	 * @secured
 	 * @param string $fileName
 	 */
-	public function handleRename(string $fileName)
+	public function handleRename(string $fileName): void
 	{
 		if ($this->presenter->isAjax() && $this->editable) {
 			$this->template->files = [$this->rename($fileName)];
@@ -250,7 +250,7 @@ class FileManager extends Control
 	/**
 	 * Pridani souboru
 	 */
-	public function handleAddFile()
+	public function handleAddFile(): void
 	{
 		if ($this->presenter->isAjax() && $this->editable) {
 			$files = $this->getFiles();
@@ -267,7 +267,7 @@ class FileManager extends Control
 	/**
 	 * Pridani adresare
 	 */
-	public function handleAddDir()
+	public function handleAddDir(): void
 	{
 		if ($this->presenter->isAjax() && $this->editable) {
 			$files = $this->getFiles();
@@ -354,7 +354,7 @@ class FileManager extends Control
 		}
 	}
 
-	public function render()
+	public function render(): void
 	{
 		$this->template->addFilter('translate', [$this->translator, 'translate']);
 
@@ -400,14 +400,14 @@ class FileManager extends Control
 
 	/**
 	 * Vrati pole cesty
-	 * @return string[]|null
+	 * @return string[]
 	 */
-	private function getPath()
+	private function getPath(): array
 	{
 		if ($this->path) {
 			return explode(DIRECTORY_SEPARATOR, $this->path);
 		}
-		return null;
+		return [];
 	}
 
 	/**
@@ -415,7 +415,7 @@ class FileManager extends Control
 	 * @return string
 	 * @throws InvalidArgumentException
 	 */
-	private function getBasePath()
+	private function getBasePath(): string
 	{
 		if ($this->basePath === null) {
 			throw new InvalidArgumentException('Method setBasePath($path) does not call');
@@ -427,7 +427,7 @@ class FileManager extends Control
 	 * Nastavi cestu
 	 * @param array $dirs
 	 */
-	private function setPath(array $dirs)
+	private function setPath(array $dirs): void
 	{
 		$this->path = implode(DIRECTORY_SEPARATOR, $dirs);
 	}
@@ -486,7 +486,7 @@ class FileManager extends Control
 	 * @param int $sufix
 	 * @return string
 	 */
-	private function generateName(string $name, int $sufix = null)
+	private function generateName(string $name, int $sufix = null): string
 	{
 		$fileName = $name . $sufix;
 		if (file_exists($this->getFullPath($fileName))) {
@@ -498,10 +498,5 @@ class FileManager extends Control
 
 interface IFileManagerFactory
 {
-
-	/**
-	 * @param string $basePath
-	 * @return FileManager
-	 */
 	public function create(string $basePath): FileManager;
 }

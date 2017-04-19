@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace NAttreid\FileManager\Lang;
 
@@ -23,7 +23,7 @@ class Translator implements ITranslator
 	 * @param string $lang
 	 * @throws InvalidArgumentException
 	 */
-	public function setLang(string $lang)
+	public function setLang(string $lang): void
 	{
 		if (!$this->translations = @include(__DIR__ . "/$lang.php")) {
 			throw new InvalidArgumentException("Translations for language '$lang' not found.");
@@ -41,7 +41,7 @@ class Translator implements ITranslator
 	public function translate($message, $count = null)
 	{
 		$translations = $this->getTranslations();
-		return isset($translations[$message]) ? $translations[$message] : $message;
+		return $translations[$message] ?? $message;
 	}
 
 }
