@@ -10,6 +10,7 @@ use NAttreid\FileManager\Lang\Translator;
 use NAttreid\Form\Form;
 use NAttreid\Utils\File;
 use NAttreid\Utils\TempFile;
+use Nette\Application\AbortException;
 use Nette\Application\Responses\FileResponse;
 use Nette\Application\UI\Control;
 use Nette\InvalidArgumentException;
@@ -158,6 +159,7 @@ class FileManager extends Control
 	 * Stahnuti souboru
 	 * @secured
 	 * @param string $fileName
+	 * @throws AbortException
 	 */
 	public function handleDownload(string $fileName): void
 	{
@@ -176,6 +178,7 @@ class FileManager extends Control
 	 * Zobrazeni pouze souboru
 	 * @secured
 	 * @param string $fileName
+	 * @throws AbortException
 	 */
 	public function handleFile(string $fileName): void
 	{
