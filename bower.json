@@ -22,7 +22,7 @@
     "jquery": "~3",
     "font-awesome": "~4",
     "history.nette.ajax.js": "~2",
-    "nette.ajax.js": "~2",
+    "nette.ajax.js": "~2.3",
     "nattreid-utils": "~1"
   }
 }
