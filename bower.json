@@ -24,5 +24,8 @@
     "history.nette.ajax.js": "~2",
     "nette.ajax.js": "~2.3",
     "nattreid-utils": "~1"
+  },
+  "resolutions": {
+    "nette.ajax.js": "~2.3"
   }
 }
