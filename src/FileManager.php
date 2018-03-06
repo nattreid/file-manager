@@ -298,7 +298,7 @@ class FileManager extends Control
 		$form->addTextArea('content')
 			->setAttribute('autofocus', true);
 
-		$form->addSubmit('save', $this->translator->translate('fileManager.save'));
+		$form->addSubmit('save', $this->translator->translate('nattreid.fileManager.save'));
 
 		$form->onSuccess[] = [$this, 'editFormSucceeded'];
 
@@ -315,7 +315,7 @@ class FileManager extends Control
 		if ($this->presenter->isAjax() && $this->editable) {
 			file_put_contents($this->getFullPath($values->id), $values->content);
 
-			$this->flashNotifier->success($this->translator->translate('fileManager.dataSaved'));
+			$this->flashNotifier->success($this->translator->translate('nattreid.fileManager.dataSaved'));
 			$this->redrawControl('fileManagerContainer');
 		} else {
 			exit;

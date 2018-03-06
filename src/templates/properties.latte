@@ -1,19 +1,19 @@
 <div class="properties">
     <table>
         <tr>
-            <td>{_'fileManager.name'}</td>
+            <td>{_'nattreid.fileManager.name'}</td>
             <th>{$file->name}</th>
         </tr>
         <tr>
-            <td>{_'fileManager.type'}</td>
+            <td>{_'nattreid.fileManager.type'}</td>
             <th>{$file->type}</th>
         </tr>
         <tr>
-            <td>{_'fileManager.size'}</td>
-            <th>{if $file->size === null}{_'fileManager.loading'}{else}{$file->size|size}{/if}</th>
+            <td>{_'nattreid.fileManager.size'}</td>
+            <th>{if $file->size === null}{_'nattreid.fileManager.loading'}{else}{$file->size|size}{/if}</th>
         </tr>
         <tr>
-            <td>{_'fileManager.changed'}</td>
+            <td>{_'nattreid.fileManager.changed'}</td>
             <th>{$file->changed|localeDateTime}</th>
         </tr>
     </table>
