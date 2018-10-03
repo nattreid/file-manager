@@ -7,8 +7,7 @@ var gulp = require('gulp'),
 var paths = {
     'dev': {
         'less': './resources/assets/less/',
-        'js': './resources/assets/js/',
-        'vendor': './resources/assets/vendor/'
+        'js': './resources/assets/js/'
     },
     'production': './assets/'
 };
@@ -42,8 +41,8 @@ gulp.task('cssMin', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(paths.dev.js + '*.js', ['js']);
-    gulp.watch(paths.dev.less + '*.less', ['less']);
+    gulp.watch(paths.dev.js + '*.js', gulp.series('js'));
+    gulp.watch(paths.dev.less + '*.less', gulp.series('css'));
 });
 
-gulp.task('default', ['js', 'jsMin', 'css', 'cssMin', 'watch']); 
+gulp.task('default', gulp.series('js', 'jsMin', 'css', 'cssMin', 'watch'));
