@@ -1,7 +1,7 @@
 {
   "name": "nattreid-file-manager",
   "description": "File Manager for Nette Framework",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "main": "./assets/fileManager.js",
   "repository": {
 	"type": "git",
