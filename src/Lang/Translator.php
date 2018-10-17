@@ -40,8 +40,19 @@ class Translator implements ITranslator
 
 	public function translate($message, $count = null)
 	{
-		$translations = $this->getTranslations();
-		return $translations[$message] ?? $message;
+		$translation = $this->getTranslations();
+
+		$arr = explode('.', $message);
+		foreach ($arr as $item) {
+			if (!isset($translation[$item])) {
+				return $message;
+			}
+			$translation = $translation[$item];
+		}
+		if (is_array($translation)) {
+			return $message;
+		}
+		return $translation;
 	}
 
 }
