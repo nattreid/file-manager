@@ -1,7 +1,7 @@
 {
   "name": "nattreid-file-manager",
   "description": "File Manager for Nette Framework",
-  "version": "1.5.2",
+  "version": "1.5.4",
   "main": "./assets/fileManager.js",
   "repository": {
 	"type": "git",
@@ -13,11 +13,11 @@
   },
   "license": "MIT",
   "dependencies": {
-	"jquery": "~3.3",
 	"font-awesome": "~4.7",
 	"history.nette.ajax.js": "attreid/history.nette.ajax.js#dev",
-	"nette.ajax.js": "~2.3",
-	"nattreid-utils": "~1.5"
+	"jquery": "~3.4",
+	"nattreid-utils": "^1.6.2",
+	"nette.ajax.js": "~2.3"
   },
   "devDependencies": {
 	"gulp": "~4.0",
